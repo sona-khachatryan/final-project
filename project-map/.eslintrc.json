@@ -1,0 +1,15 @@
+{
+  "extends": "next/core-web-vitals",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "eqeqeq": "error",
+    "no-var": "error",
+    "quotes": ["error", "single"],
+    "semi": "error",
+    "indent": ["error", 3]
+  }
+}

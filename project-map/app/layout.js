@@ -1,5 +1,6 @@
 import './globals.css';
 import {Providers} from '@/redux/provider';
+import MyMap from "@/components/MyMap/MyMap";
 
 export const metadata = {
    title: '',
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
             {/*header*/}
             <main>
                <Providers>
+                  <MyMap/>
                   {children}
                </Providers>
             </main>

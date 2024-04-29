@@ -2,11 +2,16 @@
 
 import {Provider} from 'react-redux';
 import store from './store';
+import theme from '../styles/theme';
+import {ThemeProvider} from '@mui/material';
+
 
 export function Providers({children}) {
    return (
-      <Provider store={store}>
-         {children}
-      </Provider>
+      <ThemeProvider theme={theme}>
+         <Provider store={store}>
+            {children}
+         </Provider>
+      </ThemeProvider>
    );
 }

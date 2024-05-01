@@ -1,9 +1,11 @@
 import '../styles/globals.css';
 import {Providers} from '@/redux/provider';
 import MyMap from '@/components/MyMap/MyMap';
-import {Figtree} from 'next/font/google';
+import {Raleway} from 'next/font/google';
+import ThemeSwitch from '@/components/ThemeSwitch/ThemeSwitch';
+import MyThemeProvider from '@/styles/themeProvider';
 
-const figtree = Figtree({subsets:['latin']});
+const raleway = Raleway({subsets:['latin']});
 
 export const metadata = {
    title: '',
@@ -13,12 +15,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
    return (
       <html lang="en">
-         <body className={figtree.className}>
+         <body className={raleway.className}>
             {/*header*/}
             <main>
                <Providers>
-                  {children}
-                  <MyMap/>
+                  <MyThemeProvider>
+                     {children}
+                     <MyMap/>
+                     <ThemeSwitch/>
+                  </MyThemeProvider>
                </Providers>
             </main>
             {/*footer*/}

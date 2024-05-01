@@ -1,13 +1,14 @@
 'use client';
 
 import {createSlice} from '@reduxjs/toolkit';
-import {changeStatus, getStatus} from '@/redux/features/SinglePlace/singlePlaceThunks';
+import {changeStatus, deletePlace, getStatus} from '@/redux/features/SinglePlace/singlePlaceThunks';
 
 const singlePlaceSlice = createSlice({
    name: 'singlePlace',
    initialState: {
       data: {},
       status: 'unvisited',
+      isInEditMode: false,
    },
    reducers: {
       updateSinglePlace: (state, action) => {
@@ -15,14 +16,25 @@ const singlePlaceSlice = createSlice({
       },
       updateStatus: (state, action) => {
          state.status = action.payload;
+      },
+      setIsInEditMode: (state, action) => {
+         state.isInEditMode = action.payload;
       }
    },
    extraReducers: (builder) => {
-      builder.addCase(changeStatus.fulfilled, (state, action) => {
-         console.log('successfully updated');
-      });
+      builder
+         .addCase(changeStatus.fulfilled, (state, action) => {
+            console.log('successfully updated');
+         })
+         .addCase(deletePlace.fulfilled, (state) => {
+            console.log('deleted');
+         });
    },
 });
 
-export const { updateSinglePlace, updateStatus } = singlePlaceSlice.actions;
+export const {
+   updateSinglePlace,
+   updateStatus,
+   setIsInEditMode,
+} = singlePlaceSlice.actions;
 export default singlePlaceSlice.reducer;

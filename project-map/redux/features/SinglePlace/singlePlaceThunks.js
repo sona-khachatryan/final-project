@@ -60,3 +60,19 @@ export const changeStatus = createAsyncThunk(
    }
 );
 
+export const deletePlace = createAsyncThunk(
+   'singlePlace/deletePlace',
+   async ({placeId}) => {
+      await deleteDoc(doc(db, 'places', placeId));
+   }
+);
+
+export const editPlace = createAsyncThunk(
+   'singlePlace/editPlace',
+   async ({placeId, updatedPlace}) => {
+      await setDoc(doc(db, 'places', placeId), {
+         ...updatedPlace
+      });
+   }
+);
+

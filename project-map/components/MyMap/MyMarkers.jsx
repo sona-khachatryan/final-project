@@ -4,6 +4,7 @@ import {
 } from '@vis.gl/react-google-maps';
 import { MarkerClusterer, Marker } from '@googlemaps/markerclusterer';
 import {useState, useEffect, useRef} from 'react';
+import {useRouter} from 'next/navigation';
 
 
 const imagePaths = {
@@ -16,6 +17,7 @@ function MyMarkers({points}) {
    const map = useMap();
    const [markers, setMarkers] = useState({});
    const clusterer = useRef(null);
+   const router = useRouter();
 
    useEffect(() => {
       if (!map) return;
@@ -46,21 +48,28 @@ function MyMarkers({points}) {
       });
    };
    console.log('Type:', points);
+
+   const handleMarkerClick = (marker) => {
+      console.log('Marker clicked', marker);
+      const placeId = marker.key;
+      router.push(`/map/${placeId}`);
+   };
+
    return (
       <>
          {points.map((point) => (
-
 
             <AdvancedMarker
                position={point}
                key={point.key}
                ref={(marker) => setMarkerRef(marker, point.key)}
-               // onClick={() => console.log(e.target)}
+               captureClick={true}
+               onClick={() => handleMarkerClick(point)}
             >
                <img
                   src={imagePaths[point.type ? point.type.trim().toLowerCase() : 'default'] || imagePaths.default}
                   alt=""
-                  style={{height: '20px', width: '20px', position: 'absolute'}}/>
+                  style={{height: '23px', width: '23px', position: 'absolute'}}/>
             </AdvancedMarker>
          ))}
       </>

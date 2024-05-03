@@ -36,7 +36,7 @@ function SinglePlace() {
    const isInEditMode = useSelector(state => state.singlePlace.isInEditMode);
 
    //to delete
-   const userId = '0sUwkwkBH5cBrX6JU6Da';
+   const userId = '';
    const userName = 'kremisperi';
 
 
@@ -74,7 +74,7 @@ function SinglePlace() {
          >
             {currentPlace.title ?  (<>
                <Box sx={modalBox}>
-                  <IconButton sx={{position: 'absolute', top: 0, right: 0}} onClick={handleClose} aria-label="delete" color="black" size='small'>
+                  <IconButton sx={{position: 'absolute', top: 10, right: 10, color: 'text.primary'}} onClick={handleClose} aria-label="delete" color="black" size='small'>
                      <CloseIcon/>
                   </IconButton>
 
@@ -126,14 +126,23 @@ function SinglePlace() {
                                        </MUILink>
                                     </Link>
                                     :
-                                    <Typography>
+                                    <Typography variant='subtitle1' sx={{backgroundColor: 'text.primary',
+                                       color: 'background.primary',
+                                       font: 'inherit',
+                                       width: 'fit-content',
+                                       padding: '6px',
+                                       margin: '10px 3px 5px 0',
+                                       borderRadius: '3px'
+
+
+                                    }}>
                                        Sign in to record your memories.
                                     </Typography>
                               }
 
                            </Grid>
                            <Grid item xs={12} md={5}>
-                              <Typography variant='caption' id="modal-modal-description" sx={{color: 'text.primary', font: 'inherit', display: { xs: 'none', sm: 'none', md: 'blocked'}, }}>
+                              <Typography variant='subtitle1' id="modal-modal-description" sx={{color: 'text.primary', font: 'inherit', display: { xs: 'none', sm: 'none', md: 'blocked'}, }}>
                                  {currentPlace?.extract}
                               </Typography>
                               <MUILink href={currentPlace?.url} target="_blank" rel="noopener noreferrer" underline='always' color='text.primary' sx={{color: 'text.primary', marginTop: '10px'}}>

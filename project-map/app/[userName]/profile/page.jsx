@@ -2,10 +2,10 @@
 
 import React from 'react';
 
-function MyMapPage(props) {
+function ProfilePage(props) {
    return (
       <div></div>
    );
 }
 
-export default MyMapPage;
+export default ProfilePage;

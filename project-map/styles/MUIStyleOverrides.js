@@ -1,4 +1,5 @@
 export const dialogButton = {
+   font: 'inherit',
    color: 'text.primary',
    '&:hover': {
       backgroundColor: 'button.main',
@@ -7,6 +8,7 @@ export const dialogButton = {
 };
 
 export const regularButton = {
+   font: 'inherit',
    color: 'button.text',
    backgroundColor: 'button.main',
    // borderRadius: 0,
@@ -34,6 +36,7 @@ export const focusedField = {
 };
 
 export const menuItem = {
+   font: 'inherit',
    color: 'text.dropdown',
    '&:hover': {
       backgroundColor: 'background.primary',
@@ -64,4 +67,18 @@ export const modalBox = {
    border: '2px solid #000',
    boxShadow: 24,
    p: 4
+};
+
+export const text = {
+   color: 'text.primary',
+   font: 'inherit'
+};
+
+export const headerButtons = {
+   color: 'header.text',
+   font: 'inherit',
+   '&:hover': {
+      backgroundColor: 'button.main',
+      color: 'header.text'
+   },
 };

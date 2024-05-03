@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {editPlace} from '@/redux/features/SinglePlace/singlePlaceThunks';
 import {Box, Button, Grid, Stack, TextField, Dialog, DialogTitle, DialogContent, DialogActions} from '@mui/material';
 import {setIsInEditMode} from '@/redux/features/SinglePlace/singlePlaceSlice';
-import {focusedField} from '@/styles/MUIStyleOverrides';
+import {dialogButton, focusedField, regularButton} from '@/styles/MUIStyleOverrides';
 
 
 function SinglePlaceEditMode(props) {
@@ -107,9 +107,9 @@ function SinglePlaceEditMode(props) {
                      value={wikiUrlInputValue}
                      onChange={(e) => setWikiUrlInputValue(e.target.value)}
                   />
-                  <Stack spacing={1} direction="row">
-                     <Button onClick={() => dispatch(setIsInEditMode(false))} variant="outlined" size='small' color='button' sx={{color: 'button.text', backgroundColor: 'button.main', borderRadius: 0, '&:hover': {backgroundColor: 'button.hover', color: 'button.text'}}}>Cancel</Button>
-                     <Button onClick={() => setDialogIsOpen(true)} variant="outlined" size='small' color='button' sx={{color: 'button.text', backgroundColor: 'button.main', borderRadius: 0,  '&:hover': {backgroundColor: 'button.hover', color: 'button.text'}}}>Save</Button>
+                  <Stack spacing={1} direction="row" sx={{ position: 'absolute', bottom: 40, left: 40}}>
+                     <Button onClick={() => dispatch(setIsInEditMode(false))} variant="outlined" color='button' sx={regularButton}>Cancel</Button>
+                     <Button onClick={() => setDialogIsOpen(true)} variant="outlined" color='button' sx={regularButton}>Save</Button>
 
                   </Stack>
                   <Dialog open={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
@@ -118,8 +118,8 @@ function SinglePlaceEditMode(props) {
                            Are you sure you want to save the changes?
                      </DialogContent>
                      <DialogActions sx={{color: 'text.primary', backgroundColor: 'background.primary'}}>
-                        <Button onClick={() => setDialogIsOpen(false)} sx={{color: 'text.primary', '&:hover': {backgroundColor: 'button.main', color: 'button.text'}}}>Cancel</Button>
-                        <Button onClick={handleSave} sx={{color: 'text.primary', '&:hover': {backgroundColor: 'button.main', color: 'button.text'}}}>Save</Button>
+                        <Button onClick={() => setDialogIsOpen(false)} sx={dialogButton}>Cancel</Button>
+                        <Button onClick={handleSave} sx={dialogButton}>Save</Button>
                      </DialogActions>
                   </Dialog>
                </Grid>

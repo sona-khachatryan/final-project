@@ -33,9 +33,9 @@ function EditDeleteBtns(props) {
 
    return (
       <div>
-         <Stack spacing={1} direction="row">
-            <Button onClick={onEditClick} variant="outlined" size='small' color='button' sx={regularButton}>Edit</Button>
-            <Button onClick={() => setDialogIsOpen(true)} variant="outlined" size='small' color='button' sx={regularButton}>Delete</Button>
+         <Stack spacing={1} direction="row" sx={{position: 'absolute', bottom: 40, left: 30}}>
+            <Button onClick={onEditClick} variant="outlined" color='button' sx={regularButton}>Edit</Button>
+            <Button onClick={() => setDialogIsOpen(true)} variant="outlined" color='button' sx={regularButton}>Delete</Button>
          </Stack>
 
          <Dialog open={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>

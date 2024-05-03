@@ -63,16 +63,22 @@ const theme = createTheme({
       },
       subtitle1: {
          fontFamily: 'Raleway, sans-serif',
-         fontSize: '1rem', // Default font size for subtitle1
-      },
-      caption: {
-         fontFamily: 'Raleway, sans-serif',
          fontSize: '0.8rem', // Font size for caption
          '@media (min-width:1220px)': {
             fontSize: '1rem',
          },
          '@media (min-width:1450px)': {
             fontSize: '1rem',
+         },
+      },
+      caption: {
+         fontFamily: 'Raleway, sans-serif',
+         fontSize: '0.8rem', // Font size for caption
+         '@media (min-width:1220px)': {
+            fontSize: '13px',
+         },
+         '@media (min-width:1450px)': {
+            fontSize: '13px',
          },
       },
    },
@@ -149,7 +155,6 @@ const lightTheme = createTheme({
       background: {
          primary: '#E8E6E6',
          secondary: '#A4ABA3',
-         header: '#715C83'
 
       },
       text: {
@@ -169,6 +174,10 @@ const lightTheme = createTheme({
          text: '#E9E5DA',
          hover: '#715C83',
       },
+      header: {
+         bg: '#715C83',
+         text: '#E9E5DA'
+      }
    },
 });
 
@@ -178,7 +187,6 @@ const darkTheme = createTheme({
       background: {
          primary: '#715C83',
          secondary: '#A4ABA3',
-         header: '#715C83'
 
       },
       text: {
@@ -198,6 +206,10 @@ const darkTheme = createTheme({
          text: '#E9E5DA',
          hover: '#715C83',
       },
+      header: {
+         bg: '#715C83',
+         text: '#E9E5DA'
+      }
    },
 });
 

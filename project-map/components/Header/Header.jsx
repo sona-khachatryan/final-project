@@ -1,14 +1,14 @@
 'use client';
 
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useSelector} from 'react-redux';
 import {useRouter} from 'next/navigation';
 import { styled, alpha } from '@mui/material/styles';
-import SearchIcon from '@mui/icons-material/Search';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import MapIcon from '@mui/icons-material/Map';
-import {AppBar, Box, Button, Toolbar, IconButton, Typography, InputBase, MenuItem, Menu} from '@mui/material';
+import {AppBar, Box, Button, Toolbar, IconButton, Typography, MenuItem, Menu} from '@mui/material';
 import {headerButtons, menuItem} from '@/styles/MUIStyleOverrides';
+import CustomSearch from '@/components/CustomSearch/CustomSearch';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -27,46 +27,16 @@ const Search = styled('div')(({ theme }) => ({
    },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-   padding: theme.spacing(0, 2),
-   height: '100%',
-   position: 'absolute',
-   pointerEvents: 'none',
-   display: 'flex',
-   alignItems: 'center',
-   justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-   color: 'inherit',
-   '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-         width: '20ch',
-      },
-   },
-}));
-
 function Header(props) {
    const [anchorEl, setAnchorEl] = useState(null);
    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
    const router = useRouter();
    const places = useSelector(state => state.places.allPlaces);
 
-   const [searchInputValue, setSearchInputValue] = useState('');
-   const [searchOptions, setSearchOptions] = useState([]);
-
+   //to delete
    const userName = 'kremisperi';
    const userId = '0sUwkwkBH5cBrX6JU6Da';
    // const userId = undefined;
-
-   useEffect(() => {
-      setSearchOptions( places.map(place => place.title));
-   }, [places]);
 
    const isMenuOpen = Boolean(anchorEl);
    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -182,13 +152,7 @@ function Header(props) {
                   </Typography>
                </Box>
                <Search>
-                  <SearchIconWrapper>
-                     <SearchIcon />
-                  </SearchIconWrapper>
-                  <StyledInputBase
-                     placeholder="Search…"
-                     inputProps={{ 'aria-label': 'search' }}
-                  />
+                  <CustomSearch/>
                </Search>
                <Box sx={{ flexGrow: 1 }} />
                <Box sx={{ display: { xs: 'none', md: 'flex' }, marginRight: '15px' }}>

@@ -7,10 +7,11 @@ import { toggleThemeMode} from '@/styles/themeSlice';
 
 function ThemeSwitch(props) {
    const dispatch = useDispatch();
-   const mode = useSelector((state) => state.theme.mode);
-
+   const mode = useSelector(state => state.theme.mode);
    const handleToggleTheme = () => {
+      console.log('switch clicked');
       dispatch(toggleThemeMode());
+      console.log(localStorage);
    };
 
    return (

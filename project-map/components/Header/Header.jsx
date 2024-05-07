@@ -9,6 +9,7 @@ import MapIcon from '@mui/icons-material/Map';
 import {AppBar, Box, Button, Toolbar, IconButton, Typography, MenuItem, Menu} from '@mui/material';
 import {headerButtons, menuItem} from '@/styles/MUIStyleOverrides';
 import CustomSearch from '@/components/CustomSearch/CustomSearch';
+import ThemeSwitch from '@/components/ThemeSwitch/ThemeSwitch';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -36,7 +37,7 @@ function Header(props) {
    //to delete
    const userName = 'kremisperi';
    const userId = '0sUwkwkBH5cBrX6JU6Da';
-   // const userId = undefined;
+   //const userId = undefined;
 
    const isMenuOpen = Boolean(anchorEl);
    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -95,16 +96,16 @@ function Header(props) {
       >
          {
             userId ?
-               <>
+               <Box>
                   <MenuItem sx={menuItem} onClick={() => {router.push(`/${userName}/my_map`), handleMobileMenuClose();}}>My Map</MenuItem>
                   <MenuItem sx={menuItem} onClick={() => {router.push(`/${userName}/my_memories`), handleMobileMenuClose();}}>My Memories</MenuItem>
                   <MenuItem sx={menuItem} onClick={() => {router.push(`/${userName}/profile`), handleMobileMenuClose();}}>My Profile</MenuItem>
-               </>
+               </Box>
                :
-               <>
+               <Box>
                   <MenuItem sx={menuItem} onClick={() => {router.push('/sign_in'), handleMobileMenuClose();}}>Sign In</MenuItem>
                   <MenuItem sx={menuItem} onClick={() => {router.push('/sign_up'), handleMobileMenuClose();}}>Sign Up</MenuItem>
-               </>
+               </Box>
          }
       </Menu>
    );
@@ -182,6 +183,7 @@ function Header(props) {
                      <MoreIcon />
                   </IconButton>
                </Box>
+               <ThemeSwitch/>
             </Toolbar>
          </AppBar>
          {renderMobileMenu}

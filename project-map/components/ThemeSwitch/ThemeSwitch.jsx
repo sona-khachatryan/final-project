@@ -19,6 +19,20 @@ function ThemeSwitch(props) {
          checked={mode === 'dark'}
          onChange={handleToggleTheme}
          color="primary"
+         sx={{
+            '& .MuiSwitch-thumb': {
+               backgroundColor: 'header.text',
+            },
+            '& .Mui-checked .MuiSwitch-thumb': {
+               backgroundColor: 'text.dropdown'
+            },
+            '& .MuiSwitch-track': {
+               backgroundColor: 'header.text'
+            },
+            '& .Mui-checked + .MuiSwitch-track': {
+               backgroundColor: 'text.dropdown'
+            }
+         }}
       />
    );
 }

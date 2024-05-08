@@ -36,14 +36,15 @@ function SinglePlace() {
    const isInEditMode = useSelector(state => state.singlePlace.isInEditMode);
 
    //to delete
-   const userId = '';
+   //const userId = '';
    const userName = 'kremisperi';
+   const userId = '0sUwkwkBH5cBrX6JU6Da';
 
 
    useEffect(() => {
       dispatch(getSinglePlace({placeId}));
       dispatch(getStatus({placeId, userId}));
-   }, [placeId]);
+   }, [placeId, pathname]);
 
 
    const [selectStatus, setSelectStatus] = useState('');
@@ -142,7 +143,7 @@ function SinglePlace() {
 
                            </Grid>
                            <Grid item xs={12} md={5}>
-                              <Typography variant='subtitle1' id="modal-modal-description" sx={{color: 'text.primary', font: 'inherit', display: { xs: 'none', sm: 'none', md: 'blocked'}, }}>
+                              <Typography variant='subtitle1' id="modal-modal-description" sx={{color: 'text.primary', font: 'inherit', display: { xs: 'none', sm: 'none', md: 'block'}, }}>
                                  {currentPlace?.extract}
                               </Typography>
                               <MUILink href={currentPlace?.url} target="_blank" rel="noopener noreferrer" underline='always' color='text.primary' sx={{color: 'text.primary', marginTop: '10px'}}>

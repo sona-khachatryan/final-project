@@ -24,6 +24,8 @@ export const dialogActions = {
 };
 
 export const focusedField = {
+   height: 'fit-content',
+   maxHeight: '400px',
    '& .MuiOutlinedInput-root': {
       '&.Mui-focused fieldset': {
          borderColor: 'text.primary',

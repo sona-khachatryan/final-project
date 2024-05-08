@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {usePathname, useRouter} from 'next/navigation';
 import {setIsInEditMode} from '@/redux/features/SinglePlace/singlePlaceSlice';
 import {dialogActions, dialogButton, regularButton} from '@/styles/MUIStyleOverrides';
+import {enterMemoryEditMode} from '@/redux/features/SingleMemory/memorySlice';
 
 function EditDeleteBtns(props) {
    const router = useRouter();
@@ -25,7 +26,7 @@ function EditDeleteBtns(props) {
 
    const onEditClick = () => {
       if (pathname.includes('my_memories')) {
-         //open edit memory
+         dispatch(enterMemoryEditMode(true));
       } else {
          dispatch(setIsInEditMode(true));
       }

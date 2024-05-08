@@ -39,7 +39,7 @@ const promptStyle = {
    '@media (min-width:300px) and (max-width:800px)': {
       display: 'none',
    },
-   '@media (min-width:601px)': {
+   '@media (min-width:801px)': {
       display: 'inline-block',
    },
 };
@@ -52,7 +52,7 @@ const fieldStyle = {
          width: '270px',
          fontSize: '11px',
       },
-      '@media (min-width:601px)': {
+      '@media (min-width:801px)': {
          // display: 'inline-block',
       },
    },
@@ -80,12 +80,12 @@ function SingleMemoryEditMode(props) {
    const [archInputValue, setArchInputValue] = useState('');
    const [customPromptInputValue, setCustomPromptInputValue] = useState('');
 
-   const [isSmallScreen, setIsSmallScreen] = React.useState(false);
+   const [isSmallScreen, setIsSmallScreen] = useState(false);
    const [textColor, setTextColor] = useState(mode === 'dark' ? '#E9E5DA' : '#482E5B');
    
    useEffect(() => {
       const handleResize = () => {
-         setIsSmallScreen(window.innerWidth >= 300 && window.innerWidth <= 600);
+         setIsSmallScreen(window.innerWidth >= 300 && window.innerWidth <= 800);
       };
 
       handleResize();
@@ -110,7 +110,7 @@ function SingleMemoryEditMode(props) {
       if(currentMemory?.recorded) {
          setReflectInputValue(currentMemory.reflect);
          setLearnOrHistoryInputValue(currentMemory.learnOrHistory);
-         setArchInputValue(currentMemory.arch);
+         setArchInputValue(currentMemory.architect);
          setCustomPromptInputValue(currentMemory.customPrompt);
          setSelectedDate(currentMemory.visitDate);
       }
@@ -130,8 +130,9 @@ function SingleMemoryEditMode(props) {
          visitDate: selectedDate,
          reflect: reflectInputValue,
          learnOrHistory: learnOrHistoryInputValue,
-         arch: archInputValue,
+         architect: archInputValue,
          customPrompt: customPromptInputValue,
+         title: currentPlace?.title,
       };
 
       if(currentMemory.recorded) {

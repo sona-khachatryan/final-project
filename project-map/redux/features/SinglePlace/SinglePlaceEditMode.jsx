@@ -62,14 +62,12 @@ function SinglePlaceEditMode(props) {
                      sx={focusedField}
                      multiline
                      value={titleInputValue}
-                     defaultValue={currentPlace?.title}
                      onChange={(e) => setTitleInputValue(e.target.value)}
                   />
                   <TextField
                      id="outlined-multiline-static"
                      label="Type"
                      sx={focusedField}
-                     defaultValue={typeInputValue}
                      value={typeInputValue}
                      onChange={(e) => setTypeInputValue(e.target.value)}
                   />
@@ -78,7 +76,6 @@ function SinglePlaceEditMode(props) {
                      label="Image URL"
                      sx={focusedField}
                      multiline
-                     defaultValue={currentPlace?.image}
                      value={imageUrlInputValue}
                      onChange={(e) => setImageUrlInputValue(e.target.value)}
                   />
@@ -86,7 +83,6 @@ function SinglePlaceEditMode(props) {
                      id="outlined-multiline-static"
                      label="Latitude"
                      sx={focusedField}
-                     defaultValue={currentPlace?.coordinates?.lat}
                      value={latitudeInputValue}
                      onChange={(e) => setLatitudeInputValue(e.target.value)}
                   />
@@ -94,7 +90,6 @@ function SinglePlaceEditMode(props) {
                      id="outlined-multiline-static"
                      label="Longitude"
                      sx={focusedField}
-                     defaultValue={currentPlace?.coordinates?.lon}
                      value={longitudeInputValue}
                      onChange={(e) => setLongitudeInputValue(e.target.value)}
                   />
@@ -103,7 +98,6 @@ function SinglePlaceEditMode(props) {
                      label="Wikipedia URL"
                      multiline
                      sx={focusedField}
-                     defaultValue={currentPlace?.url}
                      value={wikiUrlInputValue}
                      onChange={(e) => setWikiUrlInputValue(e.target.value)}
                   />
@@ -128,7 +122,6 @@ function SinglePlaceEditMode(props) {
                      id="outlined-multiline-static"
                      label="Extract"
                      multiline
-                     defaultValue={currentPlace?.extract}
                      value={extractInputValue}
                      onChange={(e) => setExtractInputValue(e.target.value)}
                      size='medium'

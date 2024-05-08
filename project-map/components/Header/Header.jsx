@@ -98,7 +98,6 @@ function Header(props) {
             userId ?
                <Box>
                   <MenuItem sx={menuItem} onClick={() => {router.push(`/${userName}/my_map`), handleMobileMenuClose();}}>My Map</MenuItem>
-                  <MenuItem sx={menuItem} onClick={() => {router.push(`/${userName}/my_memories`), handleMobileMenuClose();}}>My Memories</MenuItem>
                   <MenuItem sx={menuItem} onClick={() => {router.push(`/${userName}/profile`), handleMobileMenuClose();}}>My Profile</MenuItem>
                </Box>
                :
@@ -160,7 +159,6 @@ function Header(props) {
                   {userId ?
                      <>
                         <Button onClick={() => router.push(`/${userName}/my_map`)} sx={headerButtons}>My Map</Button>
-                        <Button onClick={() => router.push(`/${userName}/my_memories`)} sx={headerButtons}>My Memories</Button>
                         <Button onClick={() => router.push(`/${userName}/profile`)} sx={headerButtons}>My Profile</Button>
                      </>
                      :

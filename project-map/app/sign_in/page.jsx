@@ -1,11 +1,16 @@
 'use client';
+import {redirect} from 'next/navigation';
+import Link from 'next/link';
+import {Login} from "../../components/firbaseAuth/Login";
 
-import React from 'react';
 
-function SignInPage(props) {
+const SignIn = () => {
    return (
-      <div></div>
+      <div>
+         <p>Here is the sign in page</p>
+         <Login/>
+      </div>
    );
-}
+};
 
-export default SignInPage;
+export default SignIn;

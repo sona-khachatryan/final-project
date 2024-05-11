@@ -1,10 +1,15 @@
 'use client';
-import React from 'react';
 
-function SignUpPage(props) {
+import {Register} from '../../components/firbaseAuth/Register';
+
+
+const SignUp = () => {
    return (
-      <div></div>
+      <div>
+         <p>Here is the Sign up page</p>
+         <Register/>
+      </div>
    );
-}
+};
 
-export default SignUpPage;
+export default SignUp;

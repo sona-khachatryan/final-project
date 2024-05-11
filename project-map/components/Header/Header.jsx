@@ -10,6 +10,9 @@ import {AppBar, Box, Button, Toolbar, IconButton, Typography, MenuItem, Menu} fr
 import {headerButtons, menuItem} from '@/styles/MUIStyleOverrides';
 import CustomSearch from '@/components/CustomSearch/CustomSearch';
 import ThemeSwitch from '@/components/ThemeSwitch/ThemeSwitch';
+import {getAuth, onAuthStateChanged} from 'firebase/auth';
+import {app} from '@/firebase/config';
+import {setUser} from '@/redux/features/user/userSlice';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -32,12 +35,12 @@ function Header(props) {
    const [anchorEl, setAnchorEl] = useState(null);
    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
    const router = useRouter();
-   const places = useSelector(state => state.places.allPlaces);
+   const {id: userId} = useSelector(state => state.user);
 
    //to delete
    const userName = 'kremisperi';
-   const userId = '0sUwkwkBH5cBrX6JU6Da';
-   //const userId = undefined;
+   //const userId = '0sUwkwkBH5cBrX6JU6Da';
+   // const userId = undefined;
 
    const isMenuOpen = Boolean(anchorEl);
    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);

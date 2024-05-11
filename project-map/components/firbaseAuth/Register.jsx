@@ -3,10 +3,11 @@
 import React from 'react';
 import { Form } from './Form';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../redux/features/user/userSlice';
+import { setUser } from '@/redux/features/user/userSlice';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import {useRouter} from 'next/navigation';
-import app from '../../firebase/config';
+import {app} from '@/firebase/config';
+import {addNewUserDoc} from '@/redux/features/user/userThunks';
 
 
 const Register = () => {
@@ -18,14 +19,15 @@ const Register = () => {
 
       createUserWithEmailAndPassword(auth, email, password)
          .then(({ user }) => {
-            console.log(user);
-            dispatch(
-               setUser({
-                  email: user.email,
-                  id: user.uid,
-                  token: user.accessToken
-               })
-            );
+            //console.log(user, 'registered user');
+            dispatch(addNewUserDoc({userId: user.uid}));
+            // dispatch(
+            //    setUser({
+            //       email: user.email,
+            //       id: user.uid,
+            //       token: user.accessToken
+            //    })
+            // );
             router.push('/');
          })
          .catch(error => {

@@ -21,19 +21,23 @@ export const getStatus = createAsyncThunk(
    'singlePlace/getStatus',
    async ({placeId, userId}, {dispatch}) => {
 
-      onSnapshot(doc(db, 'users-test', userId, 'visited', placeId), (docSnapshot) => {
+      onSnapshot(doc(db, 'users', userId, 'visited', placeId), (docSnapshot) => {
          if (docSnapshot.exists()) {
             console.log('visited');
             dispatch(updateStatus('visited'));
-         };
-      });
-
-      onSnapshot(doc(db, 'users-test', userId, 'toBeVisited', placeId), (docSnapshot) => {
-         if (docSnapshot.exists()) {
-            console.log('toBeVisited');
-            dispatch(updateStatus('toBeVisited'));
+         } else {
+            onSnapshot(doc(db, 'users', userId, 'toBeVisited', placeId), (docSnapshot) => {
+               if (docSnapshot.exists()) {
+                  console.log('toBeVisited');
+                  dispatch(updateStatus('toBeVisited'));
+               } else {
+                  dispatch(updateStatus('unvisited'));
+               }
+            });
          }
       });
+
+
 
    }
 );
@@ -45,7 +49,7 @@ export const changeStatus = createAsyncThunk(
       //add to the new subcollection or set to 'unvisited'
 
       if(newStatus !== 'unvisited') {
-         const docRef = await setDoc(doc(db, `users-test/${userId}/${newStatus}`, thePlace.id), {...thePlace} );
+         const docRef = await setDoc(doc(db, `users/${userId}/${newStatus}`, thePlace.id), {...thePlace} );
          console.log(`added to ${newStatus} `, docRef);
       } else {
          dispatch(updateStatus('unvisited'));
@@ -53,7 +57,7 @@ export const changeStatus = createAsyncThunk(
 
       if(oldStatus !== 'unvisited') {
          //delete from the old subcollection
-         const deletedRef = await deleteDoc(doc(db, 'users-test', userId, oldStatus, thePlace.id));
+         const deletedRef = await deleteDoc(doc(db, 'users', userId, oldStatus, thePlace.id));
          console.log(` ${deletedRef} deleted from ${oldStatus}`);
       }
       

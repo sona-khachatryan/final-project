@@ -8,7 +8,7 @@ import {updateStatus} from '@/redux/features/SinglePlace/singlePlaceSlice';
 export const getAllMemories = createAsyncThunk(
    'memories/allMemories',
    async ({ userId }, {dispatch}) => {
-      const q = query(collection(db, 'users-test', userId, 'my-memories'));
+      const q = query(collection(db, 'users', userId, 'my-memories'));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
          const list = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
          console.log(list);
@@ -22,7 +22,7 @@ export const getSingleMemory = createAsyncThunk(
    'memories/getSingleMemory',
    async ({placeId, userId}, {dispatch}) => {
 
-      await onSnapshot(doc(db, 'users-test', userId, 'my-memories', placeId), (docSnapshot) => {
+      await onSnapshot(doc(db, 'users', userId, 'my-memories', placeId), (docSnapshot) => {
          if (docSnapshot.exists()) {
             console.log(docSnapshot.data(), ' check memodata');
             dispatch(updateSingleMemory(docSnapshot.data()));
@@ -37,7 +37,7 @@ export const getSingleMemory = createAsyncThunk(
 export const addNewMemory = createAsyncThunk(
    'memories/addNewMemory',
    async ({userId, placeId, memory}, {dispatch}) => {
-      const docRef = await setDoc(doc(db, `users-test/${userId}/my-memories`, placeId), {...memory} );
+      const docRef = await setDoc(doc(db, `users/${userId}/my-memories`, placeId), {...memory} );
       console.log('added to my memories', docRef);
    }
 );
@@ -45,7 +45,7 @@ export const addNewMemory = createAsyncThunk(
 export const deleteMemory = createAsyncThunk(
    'memories/deleteMemory',
    async ({userId, placeId}, {dispatch}) => {
-      const deletedRef = await deleteDoc(doc(db, 'users-test', userId, 'my-memories', placeId));
+      const deletedRef = await deleteDoc(doc(db, 'users', userId, 'my-memories', placeId));
       console.log(` ${deletedRef} deleted from memories`);
    }
 );
@@ -53,7 +53,7 @@ export const deleteMemory = createAsyncThunk(
 export const editMemory = createAsyncThunk(
    'memories/editMemory',
    async ({userId, placeId, memory}, {dispatch}) => {
-      const docRef = await setDoc(doc(db, `users-test/${userId}/my-memories/${placeId}`), {...memory} );
+      const docRef = await setDoc(doc(db, `users/${userId}/my-memories/${placeId}`), {...memory} );
       console.log('edited memory', docRef);
    }
 );

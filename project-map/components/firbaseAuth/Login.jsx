@@ -3,10 +3,10 @@
 import React from 'react';
 import { Form } from './Form';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../redux/features/user/userSlice';
+import { setUser } from '@/redux/features/user/userSlice';
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
 import {useRouter} from 'next/navigation';
-import app from '../../firebase/config';
+import {app} from '@/firebase/config';
 
 const Login = () => {
    const dispatch = useDispatch();
@@ -17,15 +17,14 @@ const Login = () => {
       const auth = getAuth(app);
       signInWithEmailAndPassword(auth, email, password)
          .then(({ user }) => {
-            console.log(user);
-            dispatch(
-               setUser({
-                  email: user.email,
-                  id: user.uid,
-                  token: user.accessToken,
-
-               })
-            );
+            // console.log(user, 'loggedin user');
+            // dispatch(
+            //    setUser({
+            //       email: user.email,
+            //       id: user.uid,
+            //       token: user.accessToken,
+            //    })
+            // );
             router.push('/');
          })
          .catch(console.error);

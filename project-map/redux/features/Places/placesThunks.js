@@ -21,7 +21,7 @@ export const getAllPlaces = createAsyncThunk(
 export const getSpecificPlaceList = createAsyncThunk(
    'places/getSpecificPlaceList',
    async ({ userId, visitStatus }, {dispatch}) => {
-      const q = query(collection(db, 'users-test', userId, visitStatus));
+      const q = query(collection(db, 'users', userId, visitStatus));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
          const list = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
          console.log(list, visitStatus);

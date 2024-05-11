@@ -47,10 +47,10 @@ function MyMarkers({points}) {
          }
       });
    };
-   console.log('Type:', points);
+   //console.log('Type:', points);
 
    const handleMarkerClick = (marker) => {
-      console.log('Marker clicked', marker);
+      //console.log('Marker clicked', marker);
       const placeId = marker.key;
       router.push(`/map/${placeId}`);
    };

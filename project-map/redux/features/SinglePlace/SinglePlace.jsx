@@ -34,17 +34,18 @@ function SinglePlace() {
    const currentPlace = useSelector(state => state.singlePlace.data);
    const visitStatus = useSelector(state => state.singlePlace.status);
    const isInEditMode = useSelector(state => state.singlePlace.isInEditMode);
+   const {id: userId} = useSelector(state => state.user);
 
    //to delete
    //const userId = '';
    const userName = 'kremisperi';
-   const userId = '0sUwkwkBH5cBrX6JU6Da';
+   //const userId = '0sUwkwkBH5cBrX6JU6Da';
 
 
    useEffect(() => {
       dispatch(getSinglePlace({placeId}));
       dispatch(getStatus({placeId, userId}));
-   }, [placeId, pathname]);
+   }, [dispatch, placeId, userId]);
 
 
    const [selectStatus, setSelectStatus] = useState('');
@@ -56,7 +57,7 @@ function SinglePlace() {
       if(isInEditMode) {
          dispatch(setIsInEditMode(false));
       }
-   }, [pathname]);
+   }, [dispatch, isInEditMode, pathname]);
    const handleStatusChange = (e) => {
       dispatch(changeStatus({userId, thePlace: currentPlace, newStatus: e.target.value, oldStatus: visitStatus }));
    };

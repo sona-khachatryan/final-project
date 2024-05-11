@@ -6,7 +6,7 @@ import places from './features/Places/placesSlice';
 import singlePlace from './features/SinglePlace/singlePlaceSlice';
 import theme from '@/styles/themeSlice';
 import memories from './features/SingleMemory/memorySlice';
-import useReducer from './features/user/userSlice.js';
+import user from './features/user/userSlice.js';
 
 export default configureStore({
    reducer: {
@@ -14,7 +14,7 @@ export default configureStore({
       singlePlace,
       theme,
       memories,
-      useReducer
+      user
    },
    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
 });

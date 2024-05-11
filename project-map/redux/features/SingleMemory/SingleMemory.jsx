@@ -48,7 +48,7 @@ function SingleMemory(props) {
    const dispatch = useDispatch();
    const currentMemory = useSelector(state => state.memories.singleMemory);
    const memoryIsInEditMode = useSelector(state => state.memories.memoryEditMode);
-   const userId = '0sUwkwkBH5cBrX6JU6Da';
+   const {id: userId} = useSelector(state => state.user);
 
    useEffect(() => {
       dispatch(getSingleMemory({placeId, userId}));

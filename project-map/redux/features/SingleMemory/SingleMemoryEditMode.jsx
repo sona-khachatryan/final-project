@@ -68,6 +68,7 @@ function SingleMemoryEditMode(props) {
    const memoryIsInEditMode = useSelector(state => state.memories.memoryEditMode);
    const currentPlace = useSelector(state => state.singlePlace.data);
    const mode = useSelector(state => state.theme.mode);
+   const {id: userId} = useSelector(state => state.user);
    const router = useRouter();
 
    const [currentDate, setCurrentDate] = useState('');
@@ -96,8 +97,6 @@ function SingleMemoryEditMode(props) {
          window.removeEventListener('resize', handleResize);
       };
    }, []);
-
-   const userId = '0sUwkwkBH5cBrX6JU6Da';
 
    useEffect(() => {
       dispatch(getSinglePlace({placeId}));

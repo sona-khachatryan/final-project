@@ -8,6 +8,9 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getAllPlaces} from '@/redux/features/Places/placesThunks';
 
 import MyMarkers from '@/components/MyMap/MyMarkers';
+import {getAuth, onAuthStateChanged} from 'firebase/auth';
+import {app} from '@/firebase/config';
+import {removeUser, setUser} from '@/redux/features/user/userSlice';
 
 
 function MyMap() {
@@ -46,7 +49,22 @@ function MyMap() {
       }
    }, [markersData]);
 
-
+   //check user status
+   const auth = getAuth(app);
+   onAuthStateChanged(auth, (user) => {
+      console.log('currentuser', user);
+      if(user) {
+         dispatch(
+            setUser({
+               email: user.email,
+               id: user.uid,
+               token: user.accessToken,
+            })
+         );
+      } else {
+         dispatch(removeUser);
+      }
+   });
 
 
    if (!markersData.length) {

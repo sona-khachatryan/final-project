@@ -1,7 +1,7 @@
 'use client';
 
 import {useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useRouter} from 'next/navigation';
 import { styled, alpha } from '@mui/material/styles';
 import MoreIcon from '@mui/icons-material/MoreVert';
@@ -10,9 +10,6 @@ import {AppBar, Box, Button, Toolbar, IconButton, Typography, MenuItem, Menu} fr
 import {headerButtons, menuItem} from '@/styles/MUIStyleOverrides';
 import CustomSearch from '@/components/CustomSearch/CustomSearch';
 import ThemeSwitch from '@/components/ThemeSwitch/ThemeSwitch';
-import {getAuth, onAuthStateChanged} from 'firebase/auth';
-import {app} from '@/firebase/config';
-import {setUser} from '@/redux/features/user/userSlice';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -100,7 +97,7 @@ function Header(props) {
          {
             userId ?
                <Box>
-                  <MenuItem sx={menuItem} onClick={() => {router.push(`/${userName}/my_map`), handleMobileMenuClose();}}>My Map</MenuItem>
+                  <MenuItem sx={menuItem} onClick={() => {router.push(`/${userName}/my_places`), handleMobileMenuClose();}}>My Places</MenuItem>
                   <MenuItem sx={menuItem} onClick={() => {router.push(`/${userName}/profile`), handleMobileMenuClose();}}>My Profile</MenuItem>
                </Box>
                :
@@ -161,7 +158,7 @@ function Header(props) {
                <Box sx={{ display: { xs: 'none', md: 'flex' }, marginRight: '15px' }}>
                   {userId ?
                      <>
-                        <Button onClick={() => router.push(`/${userName}/my_map`)} sx={headerButtons}>My Map</Button>
+                        <Button onClick={() => router.push(`/${userName}/my_places`)} sx={headerButtons}>My Places</Button>
                         <Button onClick={() => router.push(`/${userName}/profile`)} sx={headerButtons}>My Profile</Button>
                      </>
                      :

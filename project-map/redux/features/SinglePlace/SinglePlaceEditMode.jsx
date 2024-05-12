@@ -122,6 +122,7 @@ function SinglePlaceEditMode(props) {
                      id="outlined-multiline-static"
                      label="Extract"
                      multiline
+                     maxRows={22}
                      value={extractInputValue}
                      onChange={(e) => setExtractInputValue(e.target.value)}
                      size='medium'

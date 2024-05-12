@@ -1,10 +1,13 @@
 'use client';
 
 import React from 'react';
+import MyPlaces from '@/redux/features/Places/MyPlaces';
 
 function MyMapPage(props) {
    return (
-      <div></div>
+      <div>
+         <MyPlaces/>
+      </div>
    );
 }
 

@@ -154,7 +154,8 @@ const lightTheme = createTheme({
    palette: {
       background: {
          primary: '#E8E6E6',
-         secondary: '#A4ABA3',
+         secondary: '#909d90',
+         card: 'rgb(203,193,211)'
 
       },
       text: {
@@ -186,8 +187,8 @@ const darkTheme = createTheme({
    palette: {
       background: {
          primary: '#715C83',
-         secondary: '#A4ABA3',
-
+         secondary: '#909d90',
+         card: '#837b8a'
       },
       text: {
          primary: '#E9E5DA',

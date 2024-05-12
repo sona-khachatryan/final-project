@@ -5,16 +5,32 @@ import {
 } from '@vis.gl/react-google-maps';
 import {useEffect, useState, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {getAllPlaces} from '@/redux/features/Places/placesThunks';
+import {getAllPlaces, getSpecificPlaceList} from '@/redux/features/Places/placesThunks';
 
 import MyMarkers from '@/components/MyMap/MyMarkers';
 import {getAuth, onAuthStateChanged} from 'firebase/auth';
 import {app} from '@/firebase/config';
 import {removeUser, setUser} from '@/redux/features/user/userSlice';
+import store from '@/redux/store';
 
+const auth = getAuth(app);
+onAuthStateChanged(auth, (user) => {
+   console.log('currentuser', user);
+   if(user) {
+      store.dispatch(
+         setUser({
+            email: user.email,
+            id: user.uid,
+            token: user.accessToken,
+         })
+      );
+   } else {
+      store.dispatch(removeUser);
+   }
+});
 
 function MyMap() {
-   const allPlaces = useSelector(state => state.places.allPlaces);
+   const {allPlaces} = useSelector(state => state.places);
    const [mapCenter, setMapCenter] = useState({lat: 40.1356603, lng: 45.3273985});
    const [markersData, setMarkersData] = useState([]);
    const dispatch = useDispatch();
@@ -30,6 +46,9 @@ function MyMap() {
       }
    }, [allPlaces]);
 
+   // useEffect(() => {
+   //
+   // }, []);
 
    const [onlyMarkers, setOnlyMarkers] = useState([]);
 
@@ -48,24 +67,6 @@ function MyMap() {
          setOnlyMarkers(points);
       }
    }, [markersData]);
-
-   //check user status
-   const auth = getAuth(app);
-   onAuthStateChanged(auth, (user) => {
-      console.log('currentuser', user);
-      if(user) {
-         dispatch(
-            setUser({
-               email: user.email,
-               id: user.uid,
-               token: user.accessToken,
-            })
-         );
-      } else {
-         dispatch(removeUser);
-      }
-   });
-
 
    if (!markersData.length) {
       return (

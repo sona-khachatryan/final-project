@@ -7,6 +7,7 @@ import singlePlace from './features/SinglePlace/singlePlaceSlice';
 import theme from '@/styles/themeSlice';
 import memories from './features/SingleMemory/memorySlice';
 import user from './features/user/userSlice.js';
+import pagination from './features/Pagination/paginationSlice';
 
 export default configureStore({
    reducer: {
@@ -14,7 +15,8 @@ export default configureStore({
       singlePlace,
       theme,
       memories,
-      user
+      user,
+      pagination
    },
    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
 });

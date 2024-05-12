@@ -52,18 +52,22 @@ function SinglePlace() {
    useEffect(() => {
       setSelectStatus(visitStatus);
    }, [visitStatus]);
-
-   useEffect(() => {
-      if(isInEditMode) {
-         dispatch(setIsInEditMode(false));
-      }
-   }, [dispatch, isInEditMode, pathname]);
+   //
+   // useEffect(() => {
+   //    if(isInEditMode) {
+   //       dispatch(setIsInEditMode(false));
+   //    }
+   // }, [dispatch, isInEditMode, pathname]);
    const handleStatusChange = (e) => {
       dispatch(changeStatus({userId, thePlace: currentPlace, newStatus: e.target.value, oldStatus: visitStatus }));
    };
 
    const handleClose = () => {
-      router.back();
+      if(isInEditMode) {
+         dispatch(setIsInEditMode(false));
+      } else {
+         router.back();
+      }
    };
 
    return (
@@ -85,6 +89,7 @@ function SinglePlace() {
                      <>
                         <Grid container
                            direction="row"
+                           columnSpacing={-4}
                            justifyContent="space-around">
                            <Grid item xs={12} md={7}>
                               <img style={{width: 400}} src={currentPlace?.image}/>
@@ -144,10 +149,10 @@ function SinglePlace() {
 
                            </Grid>
                            <Grid item xs={12} md={5}>
-                              <Typography variant='subtitle1' id="modal-modal-description" sx={{color: 'text.primary', font: 'inherit', display: { xs: 'none', sm: 'none', md: 'block'}, }}>
+                              <Typography variant='subtitle1' id="modal-modal-description" sx={{color: 'text.primary', font: 'inherit', display: { xs: 'none', sm: 'none', md: 'block'}, maxHeight: '445px', overflowY: 'auto' }}>
                                  {currentPlace?.extract}
                               </Typography>
-                              <MUILink href={currentPlace?.url} target="_blank" rel="noopener noreferrer" underline='always' color='text.primary' sx={{color: 'text.primary', marginTop: '10px'}}>
+                              <MUILink href={currentPlace?.url} target="_blank" rel="noopener noreferrer" underline='always' color='text.primary' sx={{color: 'text.primary', marginTop: '15px'}}>
                                  Learn more
                               </MUILink>
                            </Grid>

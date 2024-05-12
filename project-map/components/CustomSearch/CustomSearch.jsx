@@ -1,9 +1,12 @@
+'use client';
+
 import React, {useEffect, useState} from 'react';
 import './SearchDropdown.css';
 import {useSelector} from 'react-redux';
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
-const CustomSearch = () => {
+
+function CustomSearch() {
    const [searchValue, setSearchValue] = useState('');
    const [filteredOptions, setFilteredOptions] = useState([]);
    const [isDropdownVisible, setIsDropdownVisible] = useState(false);

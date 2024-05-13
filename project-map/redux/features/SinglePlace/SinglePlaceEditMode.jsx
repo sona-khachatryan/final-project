@@ -3,10 +3,21 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, usePathname, useRouter} from 'next/navigation';
 import {useDispatch, useSelector} from 'react-redux';
-import {editPlace} from '@/redux/features/SinglePlace/singlePlaceThunks';
-import {Box, Button, Grid, Stack, TextField, Dialog, DialogTitle, DialogContent, DialogActions} from '@mui/material';
+import {changeStatus, editPlace} from '@/redux/features/SinglePlace/singlePlaceThunks';
+import {
+   Box,
+   Button,
+   Grid,
+   Stack,
+   TextField,
+   Dialog,
+   DialogTitle,
+   DialogContent,
+   DialogActions,
+   FormControl, InputLabel, Select, MenuItem
+} from '@mui/material';
 import {setIsInEditMode} from '@/redux/features/SinglePlace/singlePlaceSlice';
-import {dialogButton, focusedField, regularButton} from '@/styles/MUIStyleOverrides';
+import {dialogButton, focusedField, menuItem, regularButton} from '@/styles/MUIStyleOverrides';
 import {addNewPlace} from '@/redux/features/Places/placesThunks';
 import {setIsInAddNewPlaceMode} from '@/redux/features/Places/placesSlice';
 
@@ -37,12 +48,14 @@ function SinglePlaceEditMode(props) {
    const [latitudeInputValue, setLatitudeInputValue] = useState(addNewPlaceMode ? '' : currentPlace?.coordinates?.lat);
    const [longitudeInputValue, setLongitudeInputValue] = useState(addNewPlaceMode ? '' : currentPlace?.coordinates?.lon);
    const [wikiUrlInputValue, setWikiUrlInputValue] = useState(addNewPlaceMode ? '' : currentPlace?.url);
+   const [typeSelectValue, setTypeSelectValue] = useState(addNewPlaceMode ? '' : currentPlace?.type);
 
    const [imageUrlError, setImageUrlError] = useState('');
    const [wikiUrlError, setWikiUrlError] = useState('');
    const [longitudeError, setLongitudeError] = useState('');
    const [latitudeError, setLatitudeError] = useState('');
    const [titleError, setTitleError] = useState('');
+   const [typeError, setTypeError] = useState('');
 
    useEffect(() => {
       // validate URL
@@ -70,6 +83,7 @@ function SinglePlaceEditMode(props) {
       setLongitudeError('');
       setLatitudeError('');
       setTitleError('');
+      setTypeError('');
 
       // Validation logic
       if (imageUrlInputValue && !isValidUrl(imageUrlInputValue)) {
@@ -92,24 +106,28 @@ function SinglePlaceEditMode(props) {
       if (!titleInputValue) {
          setTitleError('Title is required.');
       }
-   }, [titleInputValue, longitudeInputValue, latitudeInputValue, imageUrlInputValue, wikiUrlInputValue]);
+
+      if (!typeSelectValue) {
+         setTypeError('Type is required.');
+      }
+   }, [titleInputValue, longitudeInputValue, latitudeInputValue, imageUrlInputValue, wikiUrlInputValue, typeSelectValue]);
 
    const [saveIsDisabled, setSaveIsDisabled] = useState(false);
 
    useEffect(() => {
-      if(titleError || longitudeError || latitudeError || wikiUrlError || imageUrlError) {
+      if(titleError || longitudeError || latitudeError || wikiUrlError || imageUrlError || typeError) {
          setSaveIsDisabled(true);
       } else {
          setSaveIsDisabled(false);
       }
-   }, [titleError, longitudeError, latitudeError, wikiUrlError, imageUrlError]);
+   }, [titleError, longitudeError, latitudeError, wikiUrlError, imageUrlError, typeError]);
 
 
 
    const handleSave = () => {
       const updatedPlace = {
          title: titleInputValue,
-         type: typeInputValue,
+         type: typeSelectValue,
          image: imageUrlInputValue,
          coordinates: {
             lat: +(latitudeInputValue),
@@ -139,6 +157,16 @@ function SinglePlaceEditMode(props) {
       }
    };
 
+   
+   //
+   // useEffect(() => {
+   //    setSelectStatus(visitStatus);
+   // }, [visitStatus]);
+   //
+   const handleTypeSelectChange = (e) => {
+      setTypeSelectValue(e.target.value);
+   };
+
    return (
       <>
          <Box
@@ -164,13 +192,32 @@ function SinglePlaceEditMode(props) {
                      value={titleInputValue}
                      onChange={(e) => setTitleInputValue(e.target.value)}
                   />
-                  <TextField
-                     id="outlined-multiline-static"
-                     label="Type"
-                     sx={focusedField}
-                     value={typeInputValue}
-                     onChange={(e) => setTypeInputValue(e.target.value)}
-                  />
+                  {/* TODO: change to select*/}
+
+                  <Box sx={{ minWidth: 120, maxWidth: 200, height: '35px', margin: '10px 8px' }} >
+                     <FormControl required fullWidth sx={{color:'text.primary', ...focusedField}}>
+                        <InputLabel id="demo-simple-select-label" sx={{color:'text.primary'}}>Type</InputLabel>
+                        <Select
+                           displayEmpty
+                           value={typeSelectValue}
+                           label="Type"
+                           onChange={handleTypeSelectChange}
+                           sx={{color:'text.primary',}}
+                        >
+                           <MenuItem value='church' sx={menuItem}>Church</MenuItem>
+                           <MenuItem value='museum' sx={menuItem}>Museum</MenuItem>
+                           <MenuItem value='oldest extant buildings' sx={menuItem}>Preserved Historical Building</MenuItem>
+                        </Select>
+                     </FormControl>
+                  </Box>
+                  
+                  {/*<TextField*/}
+                  {/*   id="outlined-multiline-static"*/}
+                  {/*   label="Type"*/}
+                  {/*   sx={focusedField}*/}
+                  {/*   value={typeInputValue}*/}
+                  {/*   onChange={(e) => setTypeInputValue(e.target.value)}*/}
+                  {/*/>*/}
                   <TextField
                      id="outlined-multiline-static"
                      label="Image URL"

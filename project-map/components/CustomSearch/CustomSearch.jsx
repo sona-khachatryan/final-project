@@ -42,7 +42,7 @@ function CustomSearch() {
                <ul className="dropdown-list">
                   {filteredOptions.map((option) => (
                      <li key={option.id} className="dropdown-item">
-                        <Link href={`/map/${option.id}`} className="dropdown-link">
+                        <Link href={`/map/${option.id}`} className="dropdown-link" style={{display: 'block'}}>
                            {option.title}
                         </Link>
                      </li>

@@ -87,7 +87,7 @@ function SinglePlace() {
                               columnSpacing={-4}
                               justifyContent="space-around">
                               <Grid item xs={12} md={7}>
-                                 <img style={{width: 400}} src={currentPlace?.image}/>
+                                 <img style={{maxWidth: 400, maxHeight: 300}} src={currentPlace?.image}/>
                                  <Typography id="modal-modal-title" variant="h6" component="h2" sx={{color: 'text.primary'}}>
                                     {currentPlace?.title}
                                  </Typography>

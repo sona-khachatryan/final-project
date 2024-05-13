@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import { collection, query, onSnapshot } from 'firebase/firestore';
+import {collection, query, onSnapshot,addDoc} from 'firebase/firestore';
 import {db} from '@/firebase/config';
 import {updateAllPlaces, updateToBeVisited, updateVisited} from '@/redux/features/Places/placesSlice';
 
@@ -32,6 +32,16 @@ export const getSpecificPlaceList = createAsyncThunk(
             dispatch(updateToBeVisited(list));
          }
       });
+   }
+);
+
+export const addNewPlace = createAsyncThunk(
+   'places/addNewPlace',
+   async ({updatedPlace}) => {
+      const docRef = await addDoc(collection(db, 'places'), {
+         ...updatedPlace
+      });
+      console.log('Document written with ID: ', docRef.id);
    }
 );
 

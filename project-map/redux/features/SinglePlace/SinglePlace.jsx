@@ -34,12 +34,11 @@ function SinglePlace() {
    const currentPlace = useSelector(state => state.singlePlace.data);
    const visitStatus = useSelector(state => state.singlePlace.status);
    const isInEditMode = useSelector(state => state.singlePlace.isInEditMode);
-   const {id: userId} = useSelector(state => state.user);
+   const {id: userId, isAdmin} = useSelector(state => state.user);
 
    //to delete
-   //const userId = '';
    const userName = 'kremisperi';
-   //const userId = '0sUwkwkBH5cBrX6JU6Da';
+   
 
 
    useEffect(() => {
@@ -52,12 +51,7 @@ function SinglePlace() {
    useEffect(() => {
       setSelectStatus(visitStatus);
    }, [visitStatus]);
-   //
-   // useEffect(() => {
-   //    if(isInEditMode) {
-   //       dispatch(setIsInEditMode(false));
-   //    }
-   // }, [dispatch, isInEditMode, pathname]);
+
    const handleStatusChange = (e) => {
       dispatch(changeStatus({userId, thePlace: currentPlace, newStatus: e.target.value, oldStatus: visitStatus }));
    };
@@ -78,102 +72,102 @@ function SinglePlace() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
          >
-            {currentPlace.title ?  (<>
-               <Box sx={modalBox}>
-                  <IconButton sx={{position: 'absolute', top: 10, right: 10, color: 'text.primary'}} onClick={handleClose} aria-label="delete" color="black" size='small'>
-                     <CloseIcon/>
-                  </IconButton>
+            <Box sx={modalBox}>
+               <IconButton sx={{position: 'absolute', top: 10, right: 10, color: 'text.primary'}} onClick={handleClose} aria-label="delete" color="black" size='small'>
+                  <CloseIcon/>
+               </IconButton>
 
-                  {!isInEditMode 
-                     ?
-                     <>
-                        <Grid container
-                           direction="row"
-                           columnSpacing={-4}
-                           justifyContent="space-around">
-                           <Grid item xs={12} md={7}>
-                              <img style={{width: 400}} src={currentPlace?.image}/>
-                              <Typography id="modal-modal-title" variant="h6" component="h2" sx={{color: 'text.primary'}}>
-                                 {currentPlace?.title}
-                              </Typography>
-                              <Typography variant='subtitle1' sx={{color: 'text.primary', font: 'inherit'}}>
-                                 Coordinates {`${currentPlace?.coordinates?.lat} ${currentPlace?.coordinates?.lon}`}
-                              </Typography>
+               { currentPlace?.title ?
+                  <>
+                     {!isInEditMode
+                        ?
+                        <>
+                           <Grid container
+                              direction="row"
+                              columnSpacing={-4}
+                              justifyContent="space-around">
+                              <Grid item xs={12} md={7}>
+                                 <img style={{width: 400}} src={currentPlace?.image}/>
+                                 <Typography id="modal-modal-title" variant="h6" component="h2" sx={{color: 'text.primary'}}>
+                                    {currentPlace?.title}
+                                 </Typography>
+                                 <Typography variant='subtitle1' sx={{color: 'text.primary', font: 'inherit'}}>
+                                       Coordinates {`${currentPlace?.coordinates?.lat} ${currentPlace?.coordinates?.lon}`}
+                                 </Typography>
 
-                              {userId
-                                 ?
-                                 <Box sx={{ minWidth: 120, maxWidth: 200, height: '35px', margin: '10px 0' }} >
-                                    <FormControl fullWidth sx={{color:'text.primary', ...focusedField}}>
-                                       <InputLabel id="demo-simple-select-label" sx={{color:'text.primary'}}>Status</InputLabel>
-                                       <Select
-                                          labelId="demo-simple-select-label"
-                                          id="demo-simple-select"
-                                          defaultValue={selectStatus}
-                                          value={selectStatus}
-                                          label="Status"
-                                          onChange={handleStatusChange}
-                                          sx={{color:'text.primary',}}
-                                       >
-                                          <MenuItem value='unvisited' sx={menuItem}>Unvisited</MenuItem>
-                                          <MenuItem value='visited' sx={menuItem}>Visited</MenuItem>
-                                          <MenuItem value='toBeVisited' sx={menuItem}>To Be Visited</MenuItem>
-                                       </Select>
-                                    </FormControl>
-                                 </Box>
-                                 :
-                                 ''
-                              }
-
-                              {
-                                 userId
+                                 {userId
                                     ?
-                                    <Link style={{textDecoration: 'none', color: 'text.primary'}} href={`/${userName}/my_memories/${placeId}`} passHref>
-                                       <MUILink underline='hover' color='text.primary' sx={{color: 'text.primary'}}>
-                                          My memories
-                                       </MUILink>
-                                    </Link>
+                                    <Box sx={{ minWidth: 120, maxWidth: 200, height: '35px', margin: '10px 0' }} >
+                                       <FormControl fullWidth sx={{color:'text.primary', ...focusedField}}>
+                                          <InputLabel id="demo-simple-select-label" sx={{color:'text.primary'}}>Status</InputLabel>
+                                          <Select
+                                             labelId="demo-simple-select-label"
+                                             id="demo-simple-select"
+                                             defaultValue={selectStatus}
+                                             value={selectStatus}
+                                             label="Status"
+                                             onChange={handleStatusChange}
+                                             sx={{color:'text.primary',}}
+                                          >
+                                             <MenuItem value='unvisited' sx={menuItem}>Unvisited</MenuItem>
+                                             <MenuItem value='visited' sx={menuItem}>Visited</MenuItem>
+                                             <MenuItem value='toBeVisited' sx={menuItem}>To Be Visited</MenuItem>
+                                          </Select>
+                                       </FormControl>
+                                    </Box>
                                     :
-                                    <Typography variant='subtitle1' sx={{backgroundColor: 'text.primary',
-                                       color: 'background.primary',
-                                       font: 'inherit',
-                                       width: 'fit-content',
-                                       padding: '6px',
-                                       margin: '10px 3px 5px 0',
-                                       borderRadius: '3px'
+                                    ''
+                                 }
+
+                                 {
+                                    userId
+                                       ?
+                                       <Typography variant='subtitle1' onClick={() =>  router.push(`/${userName}/my_memories/${placeId}`)} sx={{
+                                          color: 'text.primary',
+                                          display: 'inline-block',
+                                          font: 'inherit',
+                                          textDecoration: 'none',
+                                          // transition: 'text-decoration 0.3s ease',
+                                          '&:hover': {
+                                             textDecoration: 'underline',
+                                          },}}>
+                                          My memories
+                                       </Typography>
+                                       :
+                                       <Typography variant='subtitle1' sx={{backgroundColor: 'text.primary',
+                                          color: 'background.primary',
+                                          font: 'inherit',
+                                          width: 'fit-content',
+                                          padding: '6px',
+                                          margin: '10px 3px 5px 0',
+                                          borderRadius: '3px'
 
 
-                                    }}>
-                                       Sign in to record your memories.
-                                    </Typography>
-                              }
+                                       }}>
+                                             Sign in to record your memories.
+                                       </Typography>
+                                 }
 
+                              </Grid>
+                              <Grid item xs={12} md={5}>
+                                 <Typography variant='subtitle1' id="modal-modal-description" sx={{color: 'text.primary', font: 'inherit', display: { xs: 'none', sm: 'none', md: 'block'}, maxHeight: '445px', overflowY: 'auto' }}>
+                                    {currentPlace?.extract}
+                                 </Typography>
+                                 <MUILink href={currentPlace?.url} target="_blank" rel="noopener noreferrer" underline='always' color='text.primary' sx={{color: 'text.primary', marginTop: '15px'}}>
+                                       Learn more
+                                 </MUILink>
+                              </Grid>
                            </Grid>
-                           <Grid item xs={12} md={5}>
-                              <Typography variant='subtitle1' id="modal-modal-description" sx={{color: 'text.primary', font: 'inherit', display: { xs: 'none', sm: 'none', md: 'block'}, maxHeight: '445px', overflowY: 'auto' }}>
-                                 {currentPlace?.extract}
-                              </Typography>
-                              <MUILink href={currentPlace?.url} target="_blank" rel="noopener noreferrer" underline='always' color='text.primary' sx={{color: 'text.primary', marginTop: '15px'}}>
-                                 Learn more
-                              </MUILink>
-                           </Grid>
-                        </Grid>
-                        {
-                           //user.isAdmin
-                           true
-                              ?
-                              <EditDeleteBtns></EditDeleteBtns>
-                              :
-                              ''
-                        }
-                     </>
-                     :
-                     <SinglePlaceEditMode/>
-                  }
-                 
-               </Box>
-            </>) :
-               <CircularProgress color="inherit" />}
-            
+                           {isAdmin ? <EditDeleteBtns/> : ''}
+                        </>
+                        :
+                        <SinglePlaceEditMode/>
+                     }
+                  </>
+                  :
+                  <CircularProgress sx={{color:'text.primary'}} />
+               }
+            </Box>
          </Modal>
       </>
    );

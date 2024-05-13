@@ -1,28 +1,110 @@
 'use client';
 
-import React, {useState} from 'react';
-import {useParams} from 'next/navigation';
+import React, {useEffect, useState} from 'react';
+import {useParams, usePathname, useRouter} from 'next/navigation';
 import {useDispatch, useSelector} from 'react-redux';
 import {editPlace} from '@/redux/features/SinglePlace/singlePlaceThunks';
 import {Box, Button, Grid, Stack, TextField, Dialog, DialogTitle, DialogContent, DialogActions} from '@mui/material';
 import {setIsInEditMode} from '@/redux/features/SinglePlace/singlePlaceSlice';
 import {dialogButton, focusedField, regularButton} from '@/styles/MUIStyleOverrides';
-
+import {addNewPlace} from '@/redux/features/Places/placesThunks';
+import {setIsInAddNewPlaceMode} from '@/redux/features/Places/placesSlice';
 
 function SinglePlaceEditMode(props) {
    const params = useParams();
    const placeId = params.placeId;
    const dispatch = useDispatch();
    const currentPlace = useSelector(state => state.singlePlace.data);
+   const addNewPlaceMode = useSelector(state => state.places.isInAddNewPlaceMode);
+   const router = useRouter();
+   const pathname = usePathname();
+
+   // const [addNewPlaceMode, setAddNewPlaceMode] = useState(pathname.includes('new'));
+   //
+   // useEffect(() => {
+   //    if(pathname.includes('new')) {
+   //       setAddNewPlaceMode(true);
+   //    } else {
+   //       setAddNewPlaceMode(false);
+   //    }
+   // }, [pathname]);
 
    const [dialogIsOpen, setDialogIsOpen] = useState(false);
-   const [titleInputValue, setTitleInputValue] = useState(currentPlace?.title);
-   const [extractInputValue, setExtractInputValue] = useState(currentPlace?.extract);
-   const [typeInputValue, setTypeInputValue] = useState(currentPlace?.type);
-   const [imageUrlInputValue, setImageUrlInputValue] = useState(currentPlace?.image);
-   const [latitudeInputValue, setLatitudeInputValue] = useState(currentPlace?.coordinates?.lat);
-   const [longitudeInputValue, setLongitudeInputValue] = useState(currentPlace?.coordinates?.lon);
-   const [wikiUrlInputValue, setWikiUrlInputValue] = useState(currentPlace?.url);
+   const [titleInputValue, setTitleInputValue] = useState(addNewPlaceMode ? '' : currentPlace?.title);
+   const [extractInputValue, setExtractInputValue] = useState(addNewPlaceMode ? '' : currentPlace?.extract);
+   const [typeInputValue, setTypeInputValue] = useState(addNewPlaceMode ? '' : currentPlace?.type);
+   const [imageUrlInputValue, setImageUrlInputValue] = useState(addNewPlaceMode ? '' : currentPlace?.image);
+   const [latitudeInputValue, setLatitudeInputValue] = useState(addNewPlaceMode ? '' : currentPlace?.coordinates?.lat);
+   const [longitudeInputValue, setLongitudeInputValue] = useState(addNewPlaceMode ? '' : currentPlace?.coordinates?.lon);
+   const [wikiUrlInputValue, setWikiUrlInputValue] = useState(addNewPlaceMode ? '' : currentPlace?.url);
+
+   const [imageUrlError, setImageUrlError] = useState('');
+   const [wikiUrlError, setWikiUrlError] = useState('');
+   const [longitudeError, setLongitudeError] = useState('');
+   const [latitudeError, setLatitudeError] = useState('');
+   const [titleError, setTitleError] = useState('');
+
+   useEffect(() => {
+      // validate URL
+      const isValidUrl = (url) => {
+         try {
+            new URL(url);
+            return true;
+         } catch (error) {
+            return false;
+         }
+      };
+
+      // validate latitude and longitude
+      const isValidLatitude = (lat) => {
+         return !isNaN(Number(lat)) && Math.abs(lat) <= 90;
+      };
+
+      const isValidLongitude = (long) => {
+         return !isNaN(Number(long)) && Math.abs(long) <= 180;
+      };
+
+      // Resetting errors
+      setImageUrlError('');
+      setWikiUrlError('');
+      setLongitudeError('');
+      setLatitudeError('');
+      setTitleError('');
+
+      // Validation logic
+      if (imageUrlInputValue && !isValidUrl(imageUrlInputValue)) {
+         setImageUrlError('Please enter a valid image URL.');
+      }
+
+      if (wikiUrlInputValue && !isValidUrl(wikiUrlInputValue)) {
+         setWikiUrlError('Please enter a valid Wikipedia URL.');
+      }
+
+      if (!longitudeInputValue || !isValidLongitude(longitudeInputValue)) {
+         setLongitudeError('Please enter a valid longitude (-180 to 180).');
+      }
+
+      if (!latitudeInputValue || !isValidLatitude(latitudeInputValue)) {
+         setLatitudeError('Please enter a valid latitude (-90 to 90).');
+      }
+
+
+      if (!titleInputValue) {
+         setTitleError('Title is required.');
+      }
+   }, [titleInputValue, longitudeInputValue, latitudeInputValue, imageUrlInputValue, wikiUrlInputValue]);
+
+   const [saveIsDisabled, setSaveIsDisabled] = useState(false);
+
+   useEffect(() => {
+      if(titleError || longitudeError || latitudeError || wikiUrlError || imageUrlError) {
+         setSaveIsDisabled(true);
+      } else {
+         setSaveIsDisabled(false);
+      }
+   }, [titleError, longitudeError, latitudeError, wikiUrlError, imageUrlError]);
+
+
 
    const handleSave = () => {
       const updatedPlace = {
@@ -37,9 +119,24 @@ function SinglePlaceEditMode(props) {
          extract: extractInputValue,
       };
 
-      dispatch(editPlace({placeId, updatedPlace}));
-      dispatch(setIsInEditMode(false));
+      if(addNewPlaceMode) {
+         dispatch(addNewPlace({updatedPlace}));
+         dispatch(setIsInAddNewPlaceMode(false));
+         router.back();
+      } else {
+         //edit mode
+         dispatch(editPlace({placeId, updatedPlace}));
+         dispatch(setIsInEditMode(false));
+      }
+   };
 
+   const handleCancel = () => {
+      if(addNewPlaceMode) {
+         dispatch(setIsInAddNewPlaceMode(false));
+         router.back();
+      } else {
+         dispatch(setIsInEditMode(false));
+      }
    };
 
    return (
@@ -61,6 +158,9 @@ function SinglePlaceEditMode(props) {
                      label="Title"
                      sx={focusedField}
                      multiline
+                     required
+                     error={!!titleError}
+                     helperText={titleError}
                      value={titleInputValue}
                      onChange={(e) => setTitleInputValue(e.target.value)}
                   />
@@ -75,7 +175,10 @@ function SinglePlaceEditMode(props) {
                      id="outlined-multiline-static"
                      label="Image URL"
                      sx={focusedField}
+                     type='url'
                      multiline
+                     error={!!imageUrlError}
+                     helperText={imageUrlError}
                      value={imageUrlInputValue}
                      onChange={(e) => setImageUrlInputValue(e.target.value)}
                   />
@@ -83,6 +186,9 @@ function SinglePlaceEditMode(props) {
                      id="outlined-multiline-static"
                      label="Latitude"
                      sx={focusedField}
+                     required
+                     error={!!latitudeError}
+                     helperText={latitudeError}
                      value={latitudeInputValue}
                      onChange={(e) => setLatitudeInputValue(e.target.value)}
                   />
@@ -90,6 +196,9 @@ function SinglePlaceEditMode(props) {
                      id="outlined-multiline-static"
                      label="Longitude"
                      sx={focusedField}
+                     required
+                     error={!!longitudeError}
+                     helperText={longitudeError}
                      value={longitudeInputValue}
                      onChange={(e) => setLongitudeInputValue(e.target.value)}
                   />
@@ -97,19 +206,28 @@ function SinglePlaceEditMode(props) {
                      id="outlined-multiline-static"
                      label="Wikipedia URL"
                      multiline
+                     type='url'
                      sx={focusedField}
+                     error={!!wikiUrlError}
+                     helperText={wikiUrlError}
                      value={wikiUrlInputValue}
                      onChange={(e) => setWikiUrlInputValue(e.target.value)}
                   />
                   <Stack spacing={1} direction="row" sx={{ position: 'absolute', bottom: 40, left: 40}}>
-                     <Button onClick={() => dispatch(setIsInEditMode(false))} variant="outlined" color='button' sx={regularButton}>Cancel</Button>
-                     <Button onClick={() => setDialogIsOpen(true)} variant="outlined" color='button' sx={regularButton}>Save</Button>
+                     <Button onClick={handleCancel} variant="outlined" color='button' sx={regularButton}>Cancel</Button>
+                     <Button onClick={() => setDialogIsOpen(true)} disabled={saveIsDisabled} variant="outlined" color='button' sx={regularButton}>Save</Button>
 
                   </Stack>
                   <Dialog open={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
                      <DialogTitle sx={{backgroundColor: 'background.primary'}}>Confirm Changes</DialogTitle>
                      <DialogContent  sx={{backgroundColor: 'background.primary'}}>
-                           Are you sure you want to save the changes?
+                        {addNewPlaceMode ?
+                           `Are you sure you want to add ${titleInputValue} to the database with the following coordinates?
+                            Lat: ${latitudeInputValue} Lon: ${longitudeInputValue}
+                           `
+                           :
+                           'Are you sure you want to save the changes?'
+                        }
                      </DialogContent>
                      <DialogActions sx={{color: 'text.primary', backgroundColor: 'background.primary'}}>
                         <Button onClick={() => setDialogIsOpen(false)} sx={dialogButton}>Cancel</Button>

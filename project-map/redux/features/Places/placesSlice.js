@@ -8,6 +8,7 @@ const initialState = {
    toBeVisited: [],
    myPlaces: [],
    visitStatus: '',
+   isInAddNewPlaceMode: false,
 };
 
 const placesSlice = createSlice({
@@ -29,6 +30,9 @@ const placesSlice = createSlice({
       updateVisitStatus: (state, action) => {
          state.visitStatus = action.payload;
       },
+      setIsInAddNewPlaceMode: (state, action) => {
+         state.isInAddNewPlaceMode = action.payload;
+      }
    },
    extraReducers: (builder) => {
    },
@@ -39,6 +43,7 @@ export const {
    updateToBeVisited,
    updateVisited,
    updateMyPlaces,
-   updateVisitStatus
+   updateVisitStatus,
+   setIsInAddNewPlaceMode
 } = placesSlice.actions;
 export default placesSlice.reducer;

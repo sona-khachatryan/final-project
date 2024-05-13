@@ -3,7 +3,7 @@ import {
    AdvancedMarker
 } from '@vis.gl/react-google-maps';
 import { MarkerClusterer, Marker } from '@googlemaps/markerclusterer';
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect, useRef, useCallback} from 'react';
 import {useRouter} from 'next/navigation';
 
 
@@ -33,20 +33,21 @@ function MyMarkers({points}) {
       }
    }, [markers]);
 
-   const setMarkerRef = (marker, key) => {
+   const setMarkerRef = useCallback((marker, key) => {
       if (marker && markers[key]) return;
       if (!marker && !markers[key]) return;
 
       setMarkers((prev) => {
          if (marker) {
-            return {...prev, [key]: marker};
+            return { ...prev, [key]: marker };
          } else {
-            const newMarkers = {...prev};
+            const newMarkers = { ...prev };
             delete newMarkers[key];
             return newMarkers;
          }
       });
-   };
+   }, [setMarkers, markers]);
+
    //console.log('Type:', points);
 
    const handleMarkerClick = (marker) => {

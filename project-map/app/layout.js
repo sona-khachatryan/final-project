@@ -1,12 +1,14 @@
 import './globals.css';
 import {Providers} from '@/redux/provider';
 
+
+
 export const metadata = {
    title: '',
    description: '',
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children },) {
    return (
       <html lang="en">
          <body>
@@ -15,6 +17,7 @@ export default function RootLayout({ children }) {
                <Providers>
                   {children}
                </Providers>
+
             </main>
             {/*footer*/}
          </body>

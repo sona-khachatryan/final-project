@@ -105,3 +105,75 @@ a {
     color-scheme: dark;
   }
 }
+
+.user-modal {
+  font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  text-align: center;
+}
+
+.user-info img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.user-info p {
+  margin: 5px 0;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.modal.show {
+  display: block;
+}
+
+.modal h2 {
+  margin-top: 0;
+}
+
+.modal p {
+  margin-bottom: 15px;
+}
+
+.toggle-modal {
+  display: block;
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toggle-modal:hover {
+  background-color: #0056b3;
+}
+
+.email{
+  color: black;
+}
+
+.username{
+  color: black;
+}

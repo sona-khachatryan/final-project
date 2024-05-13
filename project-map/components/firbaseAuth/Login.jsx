@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
-import { Form } from './Form';
+import { FormForLogin } from './FormForLogin';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/features/user/userSlice';
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
 import {useRouter} from 'next/navigation';
 import app from '../../firebase/config';
+import HomePage from '@/app/exampleHomepage/page';
 
 const Login = () => {
    const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const Login = () => {
    };
 
    return (
-      <Form
+      <FormForLogin
          title='sign in'
          handleClick={handleLogin}
       />

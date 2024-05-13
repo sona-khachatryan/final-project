@@ -3,9 +3,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState ={
-   email: null,
-   token: null,
-   id: null
+   email: '',
+   token: '',
+   id: ''
 };
 
 const userSlice = createSlice({
@@ -21,10 +21,18 @@ const userSlice = createSlice({
          state.email = null;
          state.token = null;
          state.id = null;
+      },
+      updateUsername: (state, action) => {
+         // Ensure that state.user is not undefined before updating username
+         if (state.user) {
+            state.user.username = action.payload;
+         } else {
+            console.error('User object is undefined');
+         }
       }
    }
 });
 
-export const { setUser, removeUser } = userSlice.actions;
+export const { setUser, updateUsername, removeUser } = userSlice.actions;
 
 export default userSlice.reducer;

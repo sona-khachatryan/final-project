@@ -3,29 +3,33 @@ import {
    APIProvider,
    Map
 } from '@vis.gl/react-google-maps';
-import {useEffect, useState, useRef} from 'react';
+import {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {getAllPlaces, getSpecificPlaceList} from '@/redux/features/Places/placesThunks';
+import {getAllPlaces} from '@/redux/features/Places/placesThunks';
 
 import MyMarkers from '@/components/MyMap/MyMarkers';
-import {getAuth, onAuthStateChanged} from 'firebase/auth';
-import {app} from '@/firebase/config';
+import {onAuthStateChanged} from 'firebase/auth';
+import {auth} from '@/firebase/config';
 import {removeUser, setUser} from '@/redux/features/user/userSlice';
 import store from '@/redux/store';
 
-const auth = getAuth(app);
+
 onAuthStateChanged(auth, (user) => {
    console.log('currentuser', user);
    if(user) {
-      store.dispatch(
-         setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.accessToken,
-         })
-      );
+      user.getIdTokenResult().then(idTokenResult => {
+         store.dispatch(
+            setUser({
+               email: user.email,
+               id: user.uid,
+               token: user.accessToken,
+               isAdmin: idTokenResult.claims.admin,
+            })
+         );
+         console.log(idTokenResult.claims.admin, 'claims');
+      });
    } else {
-      store.dispatch(removeUser);
+      store.dispatch(removeUser());
    }
 });
 

@@ -1,6 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
+import {getFunctions, httpsCallable} from 'firebase/functions';
+import {getAuth} from 'firebase/auth';
 
 const firebaseConfig = {
    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -15,3 +17,6 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const db = getFirestore(app);
+export const functions = getFunctions(app);
+export const addAdminRole = httpsCallable(functions, 'addAdminRole');
+export const auth = getAuth(app);

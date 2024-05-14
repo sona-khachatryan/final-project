@@ -32,10 +32,10 @@ function Header(props) {
    const [anchorEl, setAnchorEl] = useState(null);
    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
    const router = useRouter();
-   const {id: userId} = useSelector(state => state.user);
+   const {id: userId, userName} = useSelector(state => state.user);
 
    //to delete
-   const userName = 'kremisperi';
+   //const userName = 'kremisperi';
    //const userId = '0sUwkwkBH5cBrX6JU6Da';
    // const userId = undefined;
 

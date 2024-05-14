@@ -12,8 +12,10 @@ function PaginationComponent({disableNext}) {
    const router = useRouter();
    const {currentPage, pageSize} = useSelector((state) => state.pagination);
    const {visitStatus} = useParams();
-   
-   const userName = 'kremisperi';
+   const {userName} = useSelector(state => state.user);
+
+
+   //const userName = 'kremisperi';
    const handlePageChange = (page) => {
       dispatch(setCurrentPage(page));
       router.push(`/${userName}/my_places/${visitStatus}?page=${page}`);

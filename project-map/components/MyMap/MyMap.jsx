@@ -24,6 +24,8 @@ onAuthStateChanged(auth, (user) => {
                id: user.uid,
                token: user.accessToken,
                isAdmin: idTokenResult.claims.admin,
+               userName: user.displayName,
+               photoUrl: user.photoURL,
             })
          );
          console.log(idTokenResult.claims.admin, 'claims');

@@ -34,10 +34,10 @@ function SinglePlace() {
    const currentPlace = useSelector(state => state.singlePlace.data);
    const visitStatus = useSelector(state => state.singlePlace.status);
    const isInEditMode = useSelector(state => state.singlePlace.isInEditMode);
-   const {id: userId, isAdmin} = useSelector(state => state.user);
+   const {id: userId, isAdmin, userName} = useSelector(state => state.user);
 
    //to delete
-   const userName = 'kremisperi';
+   //const userName = 'kremisperi';
    
 
 

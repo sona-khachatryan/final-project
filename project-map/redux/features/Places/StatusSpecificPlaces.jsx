@@ -35,7 +35,7 @@ function StatusSpecificPlaces(props) {
    const {visited, toBeVisited} = useSelector((state) => state.places);
    const router = useRouter();
    const dispatch = useDispatch();
-   const {id: userId} = useSelector(state =>  state.user);
+   const {id: userId, userName} = useSelector(state =>  state.user);
    const [currentList, setCurrentList] = useState([]);
    const {visitStatus} = useParams();
    const [disableNextBtn, setDisableNextBtn] = useState(false);
@@ -65,7 +65,7 @@ function StatusSpecificPlaces(props) {
       }
    }, [endIndex, currentList?.length]);
 
-   const userName = 'kremisperi';
+   //const userName = 'kremisperi';
    const handleClose = () => {
       router.push(`/${userName}/my_places/`);
    };

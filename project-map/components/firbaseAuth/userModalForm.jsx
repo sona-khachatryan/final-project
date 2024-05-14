@@ -1,8 +1,9 @@
-'use client'
+'use client';
+
 import React, { useState } from 'react';
 import { signOut } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
-import app from '../../firebase/config';
+import {app} from '../../firebase/config';
 import { useDispatch } from 'react-redux';
 import {updateUsername} from '@/redux/features/user/userSlice';
 

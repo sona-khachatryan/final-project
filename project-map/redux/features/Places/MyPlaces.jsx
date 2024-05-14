@@ -37,12 +37,12 @@ const Item = styled(Paper)(({ theme }) => ({
 function MyPlaces(props) {
    const router = useRouter();
    const {visited, toBeVisited} = useSelector(state => state.places);
-   const {id: userId} = useSelector(state =>  state.user);
+   const {id: userId, userName} = useSelector(state =>  state.user);
    const [isSmallScreen, setIsSmallScreen] = useState(false);
    const [placesListed, setPlacesListed] = useState(2);
    const dispatch = useDispatch();
 
-   const userName = 'kremisperi';
+  // const userName = 'kremisperi';
 
    useEffect(() => {
       dispatch(getSpecificPlaceList({visitStatus: 'visited', userId}));
@@ -152,7 +152,10 @@ function MyPlaces(props) {
                                  onClick={() => handleViewMore('visited')}
                                  variant="outlined"
                                  color='button'
-                                 sx={{...regularButton, backgroundColor: 'background.secondary'}}>View All</Button>
+                                 sx={{...regularButton, backgroundColor: 'background.secondary',  '&:hover': {
+                                    backgroundColor: 'button.green',
+                                    color: 'button.text'
+                                 },}}>View All</Button>
                               :
                               ''
                            }

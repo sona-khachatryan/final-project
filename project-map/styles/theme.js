@@ -167,17 +167,21 @@ const lightTheme = createTheme({
          primary: '#E8E6E6',
       },
       form: {
-         primary: '#A4ABA3'
+         primary: '#536863',
+         outlines: '#536863',
+         hover: '#A4ABA3',
       },
       button: {
          main: '#9D8FAA',
          secondary: '#715C83',
          text: '#E9E5DA',
          hover: '#715C83',
+         green: '#536863',
+         light: '#9D8FAA',
       },
       header: {
-         bg: '#715C83',
-         text: '#E9E5DA'
+         bg: '#c2bcc7',
+         text: '#5f4c70'
       }
    },
 });
@@ -199,13 +203,17 @@ const darkTheme = createTheme({
          primary: '#536863',
       },
       form: {
-         primary: '#7A8879'
+         primary: '#7A8879',
+         outlines: '#E9E5DA',
+         hover: '#A4ABA3',
       },
       button: {
          main: '#9D8FAA',
          secondary: '#536863',
          text: '#E9E5DA',
          hover: '#715C83',
+         green: '#536863',
+         light: '#A4ABA3'
       },
       header: {
          bg: '#715C83',

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Form } from './Form';
+import { FormForLogin } from './FormForLogin';
 import { useDispatch } from 'react-redux';
 import {removeUser, setUser} from '@/redux/features/user/userSlice';
 import {getAuth, onAuthStateChanged, signInWithEmailAndPassword} from 'firebase/auth';
@@ -12,7 +12,7 @@ const Login = () => {
    const dispatch = useDispatch();
    const router = useRouter();
    const auth = getAuth(app);
-  
+
 
    const handleLogin = (email,password) => {
       signInWithEmailAndPassword(auth, email, password)
@@ -31,8 +31,8 @@ const Login = () => {
    };
 
    return (
+      <FormForLogin
       //TO DO: show an alert saying you are currently logged in same for the sign up page
-      <Form
          title='sign in'
          handleClick={handleLogin}
       />

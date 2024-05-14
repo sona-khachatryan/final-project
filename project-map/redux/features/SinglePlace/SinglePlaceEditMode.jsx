@@ -157,12 +157,6 @@ function SinglePlaceEditMode(props) {
       }
    };
 
-   
-   //
-   // useEffect(() => {
-   //    setSelectStatus(visitStatus);
-   // }, [visitStatus]);
-   //
    const handleTypeSelectChange = (e) => {
       setTypeSelectValue(e.target.value);
    };
@@ -192,7 +186,6 @@ function SinglePlaceEditMode(props) {
                      value={titleInputValue}
                      onChange={(e) => setTitleInputValue(e.target.value)}
                   />
-                  {/* TODO: change to select*/}
 
                   <Box sx={{ minWidth: 120, maxWidth: 200, height: '35px', margin: '10px 8px' }} >
                      <FormControl required fullWidth sx={{color:'text.primary', ...focusedField}}>

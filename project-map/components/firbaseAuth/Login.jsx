@@ -26,7 +26,6 @@ const Login = () => {
 
    return (
       <FormForLogin
-      //TO DO: show an alert saying you are currently logged in same for the sign up page
          title='Sign In'
          handleClick={handleLogin}
       />

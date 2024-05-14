@@ -130,10 +130,15 @@ function MyPlaces(props) {
                                  onClick={() => handlePlaceClick(place.id)}
                                  sx={{
                                     backgroundColor: 'background.secondary',
-                                    color: 'header.text',
+                                    color: 'button.text',
                                     font: 'inherit',
                                     '@media (min-width: 801)': {
                                        minWidth: '400px',
+                                    },
+                                    '&:hover': {
+                                       backgroundColor: 'button.green',
+                                       color: 'button.text',
+                                       cursor: 'pointer',
                                     }
                                  }}>
                                  {place?.title}
@@ -187,11 +192,16 @@ function MyPlaces(props) {
                                  onClick={() => handlePlaceClick(place.id)}
                                  sx={{
                                     backgroundColor: 'button.main',
-                                    color: 'header.text',
+                                    color: 'button.text',
                                     font: 'inherit',
                                     '@media (min-width: 801)': {
                                        minWidth: '300px',
-                                    }
+                                    },
+                                    '&:hover': {
+                                       backgroundColor: 'button.hover',
+                                       color: 'button.text',
+                                       cursor: 'pointer',
+                                    },
                                  }}>
                                  {place?.title}
                               </Item>

@@ -2,6 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {collection, doc, setDoc} from 'firebase/firestore';
 import {app, db} from '@/firebase/config';
 import {getAuth, onAuthStateChanged, updateProfile} from 'firebase/auth';
+import {updateUsername} from '@/redux/features/user/userSlice';
 
 export const addNewUserDoc = createAsyncThunk(
    'user/addNewUserDoc',
@@ -19,6 +20,7 @@ export const updateAdditionalUserInfo = createAsyncThunk(
          photoURL: photoUrl,
       }).then(() => {
          console.log('Profile updated successfully');
+         dispatch(updateUsername(userName));
       }).catch((error) => {
          console.log('Profile update failed:', error.message);
       });

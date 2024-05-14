@@ -20,13 +20,6 @@ const Register = () => {
             dispatch(addNewUserDoc({userId: user.uid}));
             dispatch(updateAdditionalUserInfo({user, userName}));
             console.log(user);
-            // dispatch(
-            //    setUser({
-            //       email: user.email,
-            //       id: user.uid,
-            //       userName: user.displayName,
-            //    })
-            // );
             router.push('/');
          })
          .catch(error => {

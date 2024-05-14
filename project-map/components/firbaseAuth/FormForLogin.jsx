@@ -23,9 +23,14 @@ const FormForLogin = ({ title, handleClick }) => {
    const pathname = usePathname();
 
    useEffect(() => {
+      let timeoutId;
       if(error) {
-         setTimeout(() => dispatch(setErrorMessage('')), 7000);
+         timeoutId = setTimeout(() => dispatch(setErrorMessage('')), 7000);
       }
+
+      return () => {
+         clearTimeout(timeoutId);
+      };
    }, [error]);
 
    useEffect(() => {

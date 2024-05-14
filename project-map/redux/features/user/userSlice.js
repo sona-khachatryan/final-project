@@ -39,14 +39,9 @@ const userSlice = createSlice({
          state.error = action.payload;
       },
       updateUsername: (state, action) => {
-         // Ensure that state.user is not undefined before updating username
-         if (state.user) {
-            state.user.username = action.payload;
-         } else {
-            console.error('User object is undefined');
-         }
+         state.userName = action.payload;
       }
-   }
+   },
 });
 
 export const {

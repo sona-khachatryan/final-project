@@ -23,13 +23,13 @@ function CustomSearch() {
    useEffect(() => {
       if(mode === 'dark') {
          setPallete({
-            'border-color': '#482E5B',
-            'background-color': '#482E5B',
+            'borderColor': '#482E5B',
+            'backgroundColor': '#482E5B',
             'color': '#E8E6E6',});
       } else {
          setPallete({
-            'border-color': '#5f4c70',
-            'background-color': '#5f4c70',
+            'borderColor': '#5f4c70',
+            'backgroundColor': '#5f4c70',
             'color': '#E8E6E6',});
       }
    }, [mode]);
@@ -71,6 +71,6 @@ function CustomSearch() {
          )}
       </div>
    );
-};
+}
 
 export default CustomSearch;

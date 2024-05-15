@@ -36,11 +36,6 @@ function SinglePlace() {
    const isInEditMode = useSelector(state => state.singlePlace.isInEditMode);
    const {id: userId, isAdmin, userName} = useSelector(state => state.user);
 
-   //to delete
-   //const userName = 'kremisperi';
-   
-
-
    useEffect(() => {
       dispatch(getSinglePlace({placeId}));
       dispatch(getStatus({placeId, userId}));
@@ -134,16 +129,24 @@ function SinglePlace() {
                                           My memories
                                        </Typography>
                                        :
-                                       <Typography variant='subtitle1' sx={{backgroundColor: 'text.primary',
-                                          color: 'background.primary',
-                                          font: 'inherit',
-                                          width: 'fit-content',
-                                          padding: '6px',
-                                          margin: '10px 3px 5px 0',
-                                          borderRadius: '3px'
-
-
-                                       }}>
+                                       <Typography 
+                                          variant='subtitle1'
+                                          onClick={() => router.push('/sign_in')}
+                                          sx={{
+                                             backgroundColor: 'text.primary',
+                                             color: 'background.primary',
+                                             font: 'inherit',
+                                             width: 'fit-content',
+                                             padding: '6px',
+                                             margin: '10px 3px 5px 0',
+                                             borderRadius: '3px',
+                                             textDecoration: 'none',
+                                             // transition: 'text-decoration 0.3s ease',
+                                             '&:hover': {
+                                                backgroundColor: 'button.main',
+                                                cursor: 'pointer'
+                                             }
+                                          }}>
                                              Sign in to record your memories.
                                        </Typography>
                                  }
@@ -153,9 +156,13 @@ function SinglePlace() {
                                  <Typography variant='subtitle1' id="modal-modal-description" sx={{color: 'text.primary', font: 'inherit', display: { xs: 'none', sm: 'none', md: 'block'}, maxHeight: '445px', overflowY: 'auto' }}>
                                     {currentPlace?.extract}
                                  </Typography>
-                                 <MUILink href={currentPlace?.url} target="_blank" rel="noopener noreferrer" underline='always' color='text.primary' sx={{color: 'text.primary', marginTop: '15px'}}>
-                                       Learn more
-                                 </MUILink>
+                                 {currentPlace?.url ?  
+                                    <MUILink href={currentPlace?.url} target="_blank" rel="noopener noreferrer" underline='always' color='text.primary' sx={{color: 'text.primary', marginTop: '15px'}}>
+                                    Learn more
+                                    </MUILink>
+                                    :
+                                    ''
+                                 }
                               </Grid>
                            </Grid>
                            {isAdmin ? <EditDeleteBtns/> : ''}

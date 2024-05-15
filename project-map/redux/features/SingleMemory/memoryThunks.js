@@ -45,7 +45,7 @@ export const addNewMemory = createAsyncThunk(
 export const deleteMemory = createAsyncThunk(
    'memories/deleteMemory',
    async ({userId, placeId}, {dispatch}) => {
-      const deletedRef = await deleteDoc(doc(db, 'users', userId, 'my-memories', placeId));
+      const deletedRef = await deleteDoc(doc(db, `users/${userId}/my-memories`, placeId));
       console.log(` ${deletedRef} deleted from memories`);
    }
 );

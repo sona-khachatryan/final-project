@@ -71,6 +71,16 @@ const theme = createTheme({
             fontSize: '1rem',
          },
       },
+      subtitle2: {
+         fontFamily: 'Raleway, sans-serif',
+         fontSize: '13px', // Font size for caption
+         '@media (min-width:1220px)': {
+            fontSize: '13px',
+         },
+         '@media (min-width:1450px)': {
+            fontSize: '13px',
+         },
+      },
       caption: {
          fontFamily: 'Raleway, sans-serif',
          fontSize: '0.8rem', // Font size for caption

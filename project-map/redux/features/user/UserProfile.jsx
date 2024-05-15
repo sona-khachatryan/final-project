@@ -158,7 +158,9 @@ function UserProfile(props) {
             aria-describedby="modal-modal-description"
          >
             <>
-               <Box sx={{...modalBox,  minWidth: '340px', width: '30vw'}}>
+               <Box sx={{...modalBox,  minWidth: '340px', width: '30vw',  '@media (min-width:1120px)': {
+                  minWidth: '340px', width: '30vw'
+               },}}>
                   <IconButton sx={{position: 'absolute', top: 10, right: 10, color: 'text.primary'}} onClick={handleClose} aria-label="delete" color="black" size='small'>
                      <CloseIcon/>
                   </IconButton>

@@ -1,7 +1,7 @@
 'use client';
 
 import {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {useRouter} from 'next/navigation';
 import { styled, alpha } from '@mui/material/styles';
 import MoreIcon from '@mui/icons-material/MoreVert';
@@ -33,11 +33,6 @@ function Header(props) {
    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
    const router = useRouter();
    const {id: userId, userName} = useSelector(state => state.user);
-
-   //to delete
-   //const userName = 'kremisperi';
-   //const userId = '0sUwkwkBH5cBrX6JU6Da';
-   // const userId = undefined;
 
    const isMenuOpen = Boolean(anchorEl);
    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -111,7 +106,7 @@ function Header(props) {
 
    return (
       <Box sx={{ flexGrow: 1 }}>
-         <AppBar position="static" sx={{backgroundColor: 'header.bg', width: '100vw'}}>
+         <AppBar position="fixed" elevation={0} sx={{backgroundColor: 'header.bg', width: '100vw'}}>
             <Toolbar>
                <IconButton
                   size="large"

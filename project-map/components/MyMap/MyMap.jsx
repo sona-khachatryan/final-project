@@ -1,4 +1,5 @@
 'use client';
+
 import {
    APIProvider,
    Map
@@ -51,10 +52,6 @@ function MyMap() {
          console.log(allPlaces);
       }
    }, [allPlaces]);
-
-   // useEffect(() => {
-   //
-   // }, []);
 
    const [onlyMarkers, setOnlyMarkers] = useState([]);
 

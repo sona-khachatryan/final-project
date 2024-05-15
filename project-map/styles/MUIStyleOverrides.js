@@ -60,6 +60,7 @@ export const modalBox = {
    left: '50%',
    transform: 'translate(-50%, -50%)',
    width: '80vw',
+   maxWidth: '80vw',
    '@media (min-width:1120px)': {
       minWidth: '900px',
       width: 'fit-content'

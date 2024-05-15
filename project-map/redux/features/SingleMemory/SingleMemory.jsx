@@ -31,7 +31,7 @@ const memoryfields = {
    borderRadius: '3px',
    borderColor: 'text.primary',
    padding: '10px',
-   overflowY: 'auto',
+   overflowX: 'auto',
    '@media (min-width:300px) and (max-width:800px)': {
       height: '70px',
       fontSize: '13px'
@@ -101,8 +101,6 @@ function SingleMemory(props) {
                      ?
                      <SingleMemoryEditMode/>
                      :
-                     //ui
-                     //delete function
                      <Box>
                         <Typography id="modal-modal-title"
                            variant="h6"

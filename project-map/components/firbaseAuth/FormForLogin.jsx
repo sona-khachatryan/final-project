@@ -25,7 +25,7 @@ const FormForLogin = ({ title, handleClick }) => {
    useEffect(() => {
       let timeoutId;
       if(error) {
-         timeoutId = setTimeout(() => dispatch(setErrorMessage('')), 7000);
+         timeoutId = setTimeout(() => dispatch(setErrorMessage('')), 5000);
       }
 
       return () => {
@@ -178,7 +178,7 @@ const FormForLogin = ({ title, handleClick }) => {
                         height: 'fit-content',
                         maxHeight: '250px'
                      },
-                     maxHeight: '340px',
+                     maxHeight: '400px',
                      minHeight: '280px',
                      height: 'fit-content'
                   }}>
@@ -251,6 +251,22 @@ const FormForLogin = ({ title, handleClick }) => {
                            ''
                         }
 
+                        {error ?
+                           <Typography
+                              variant='subtitle1'
+                              alignSelf='center'
+                              justifyContent='center'
+                              sx={{color: 'red',
+                                 font: 'inherit',
+                                 fontSize: '13px',
+                                 marginBottom: '15px'
+                              }}>
+                              {error}
+                           </Typography>
+                           :
+                           ''
+                        }
+
                         <Button
                            onClick={handleButtonClick}
                            variant="outlined"
@@ -263,22 +279,70 @@ const FormForLogin = ({ title, handleClick }) => {
                                  backgroundColor: 'button.light',
                                  color: 'text.primary'
                               },}}>{title}</Button>
-
-                        {error ?
-                           <Typography
-                              variant='subtitle1'
-                              alignSelf='center'
-                              justifyContent='center'
-                              sx={{color: 'red',
-                                 font: 'inherit',
-                                 fontSize: '13px',
-                                 fontWeight: 'bold',
-                              }}>
-                              {error}
-                           </Typography>
+                        {title === 'Sign In' ?
+                           <>
+                              <Typography
+                                 variant='subtitle2'
+                                 alignSelf='center'
+                                 justifyContent='center'
+                                 sx={{color: 'text.primary',
+                                    font: 'inherit',
+                                    fontSize: '12px',
+                                    display: 'inline'
+                                 }}>
+                                 {'Don\'t have an account yet?'}
+                              </Typography>
+                              <Typography
+                                 variant='subtitle2'
+                                 alignSelf='center'
+                                 justifyContent='center'
+                                 onClick={() => router.push('/sign_up')}
+                                 sx={{color: 'text.primary',
+                                    font: 'inherit',
+                                    fontSize: '12px',
+                                    display: 'inline',
+                                    textDecoration: 'underline',
+                                    // transition: 'text-decoration 0.3s ease',
+                                    '&:hover': {
+                                       cursor: 'pointer'
+                                    }
+                                 }}>
+                                 {'Sign Up'}
+                              </Typography>
+                           </>
                            :
-                           ''
+                           <>
+                              <Typography
+                                 variant='subtitle2'
+                                 alignSelf='center'
+                                 justifyContent='center'
+                                 sx={{color: 'text.primary',
+                                    font: 'inherit',
+                                    fontSize: '12px',
+                                    display: 'inline'
+                                 }}>
+                                 {'Already have an account?'}
+                              </Typography>
+                              <Typography
+                                 variant='subtitle2'
+                                 alignSelf='center'
+                                 justifyContent='center'
+                                 onClick={() => router.push('/sign_in')}
+                                 sx={{color: 'text.primary',
+                                    font: 'inherit',
+                                    fontSize: '12px',
+                                    display: 'inline',
+                                    textDecoration: 'underline',
+                                    // transition: 'text-decoration 0.3s ease',
+                                    '&:hover': {
+                                       cursor: 'pointer'
+                                    }
+                                 }}>
+                                 {'Sign In'}
+                              </Typography>
+                           </>
                         }
+
                      </>
                      :
                      <Typography

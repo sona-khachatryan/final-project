@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentPage } from './paginationSlice';
 import {useParams, useRouter} from 'next/navigation';
@@ -14,8 +13,6 @@ function PaginationComponent({disableNext}) {
    const {visitStatus} = useParams();
    const {userName} = useSelector(state => state.user);
 
-
-   //const userName = 'kremisperi';
    const handlePageChange = (page) => {
       dispatch(setCurrentPage(page));
       router.push(`/${userName}/my_places/${visitStatus}?page=${page}`);

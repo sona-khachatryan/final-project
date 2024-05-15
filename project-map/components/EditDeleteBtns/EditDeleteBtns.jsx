@@ -6,17 +6,18 @@ import {useParams, usePathname, useRouter} from 'next/navigation';
 import {setIsInEditMode} from '@/redux/features/SinglePlace/singlePlaceSlice';
 import {dialogActions, dialogButton, regularButton} from '@/styles/MUIStyleOverrides';
 import {enterMemoryEditMode} from '@/redux/features/SingleMemory/memorySlice';
-import {deleteMemory} from '@/redux/features/SingleMemory/memoryThunks';
+import {deleteMemory, getSingleMemory} from '@/redux/features/SingleMemory/memoryThunks';
 
 function EditDeleteBtns(props) {
    const router = useRouter();
    const dispatch = useDispatch();
+   const pathname = usePathname();
    const params = useParams();
    const placeId = params.placeId;
-   const pathname = usePathname();
+   const {id: userId} = useSelector(state => state.user);
+
    const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
-   const userId = '0sUwkwkBH5cBrX6JU6Da';
    const handleDelete = () => {
       if (pathname.includes('my_memories')) {
          dispatch(deleteMemory({placeId, userId}));
